@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { User } from './user';
+import {Md5} from 'ts-md5/dist/md5';
 
 @Injectable({
     providedIn: 'root'
@@ -10,7 +11,7 @@ export class UserService {
 
     private userName: string;
     private userSubject = new BehaviorSubject<User>(null);
-    private userDataKey = atob('userDataSai');
+    private userDataKey: string = Md5.hashStr('userDataSai');
 
     constructor() {
         // tslint:disable-next-line:no-unused-expression
