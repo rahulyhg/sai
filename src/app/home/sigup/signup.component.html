@@ -1,0 +1,118 @@
+<form [formGroup]="signupForm" (submit)="signup()" class="form mt-4 text-center">
+
+        <div class="row text-center">
+            <div class="col-md-5 center">
+                <mat-card class="no-padding" >
+                    <mat-card-header class="bg-color-primary pt-3">
+                        <mat-card-title class="center text-big">Cadastre-se</mat-card-title>
+                    </mat-card-header>
+                        
+                    <mat-card-content class="pt-3">
+
+                        <div class="form-group">
+                            <mat-form-field class="width-90">
+                                <input formControlName="fullName" matInput placeholder="Nome">
+                                <mat-error *ngIf="signupForm.get('fullName').errors?.required">
+                                    Nome obrigatório!
+                                </mat-error>
+                                <mat-error *ngIf="signupForm.get('fullName').errors?.minlength || 
+                                                  signupForm.get('fullName').errors?.maxlength">
+                                    Digite um nome válido!
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="form-group">
+                            <mat-form-field class="width-90">
+                                <input formControlName="email" matInput placeholder="E-mail">
+                                <mat-error *ngIf="signupForm.get('email').errors?.required">
+                                    Email obrigatório!
+                                </mat-error>
+                                <mat-error *ngIf="signupForm.get('email').errors?.email">
+                                    Digite um email válido!
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="form-group">
+                            <mat-form-field class="width-90">
+                                <input formControlName="cpf" matInput placeholder="CPF" #cpfnumber maxlength="11">
+                                <mat-error *ngIf="signupForm.get('cpf').errors?.required">
+                                    CPF obrigatório!
+                                </mat-error>
+                                <mat-error *ngIf="signupForm.get('cpf').errors?.minlength">
+                                    O cpf deve conter 11 dígitos!
+                                </mat-error>
+                                <mat-hint align="end">{{cpfnumber.value?.length}} / 11</mat-hint>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="form-group">
+                            <mat-form-field class="width-90">
+                                <input formControlName="phone" maxlength="11" matInput placeholder="Celular">
+                                <mat-error *ngIf="signupForm.get('phone').errors?.required">
+                                    CPF obrigatório!
+                                </mat-error>
+                                <mat-error *ngIf="signupForm.get('phone').errors?.minlength">
+                                    Digite um celular válido!
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="form-group">
+                            <mat-form-field class="width-90">
+                                <input  autocomplete="off" 
+                                        formControlName="password" 
+                                        matInput placeholder="Senha"
+                                        type="password">
+                                <mat-error *ngIf="signupForm.get('password').errors?.required">
+                                    Senha obrigatória!
+                                </mat-error>
+                                <mat-error *ngIf="signupForm.get('password').errors?.minlength">
+                                    Senha deve conter pelomenos 6 caracteres!
+                                </mat-error>
+                                <mat-error *ngIf="signupForm.get('password').errors?.maxlength">
+                                        Senha deve conter no máximo 14 caracteres!
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="form-group">
+                            <mat-form-field class="width-90">
+                                <input  autocomplete="off" 
+                                        formControlName="passwordConfirm" 
+                                        matInput placeholder="Confirme sua Senha"
+                                        type="password">
+
+                                <mat-error *ngIf="signupForm.errors?.passwordConfirmValidator">
+                                    Senhas não conferem!
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </mat-card-content>
+
+                    <mat-card-actions class="pb-3">
+                        <div class="form-group">
+                            <button mat-raised-button mat-button 
+                                    color="accent"
+                                    class="width-90"
+                                    type="submit"
+                                    [disabled]="signupForm.invalid">
+                                        ENTRAR
+                            </button>
+                        </div>
+
+                        <div class="form-group pt-2">
+                            <p>
+                                <a [routerLink]="['/signin']">
+                                    Já sou cadastrado
+                                </a>
+                            </p>
+                        </div>
+                    </mat-card-actions>
+                </mat-card>  
+            </div>
+        </div>
+        
+
+</form>
