@@ -10,6 +10,8 @@ import { MenuModule } from './menu/menu.module';
 import { CoreModule } from './core/core.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { RegisterModule } from './register/register.module';
+import { DateAdapter } from '@angular/material';
+import { CustomDateAdapter } from './shared/CustomDateAdapter';
 
 
 
@@ -28,7 +30,9 @@ import { RegisterModule } from './register/register.module';
     DashboardModule,
     RegisterModule
   ],
-  providers: [],
+  providers: [
+    {provide: DateAdapter, useClass: CustomDateAdapter}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

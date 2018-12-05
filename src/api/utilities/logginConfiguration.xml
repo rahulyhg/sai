@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<log4php:configuration xmlns:log4php="http://logging.apache.org/log4php/">
+
+	<appender name="errorGeral" class="LoggerAppenderRollingFile">
+		<layout class="LoggerLayoutPattern">
+			<param name="ConversionPattern" value="[%d{Y-m-d H:i:s}][%5p]-[%F:%L] %m %n"/>
+		</layout>
+		<param name="file"				value="D:/Programas/xampp/htdocs/ps-on/logs/error_geral.log"/>
+		<param name="threshold"			value="error"/>
+		<param name="append"			value="true"/>
+		<param name="maxFileSize"		value="5MB"/>
+		<param name="maxBackupIndex"	value="5"/>
+	</appender>
+	<root>
+		<appender_ref ref="errorGeral"/>
+	</root>
+
+
+</log4php:configuration>

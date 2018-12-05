@@ -66,28 +66,54 @@ button:focus {
 
 ::-webkit-scrollbar {
     width: 2px;
-  }
+}
 
-  ::-webkit-scrollbar :hover{
+::-webkit-scrollbar :hover{
     width: 2px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
+}
+
+/* Track */
+::-webkit-scrollbar-track {
     background: #f1f1f1; 
-  }
-  
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
     background: mat-color($primary, 300);
     border-radius: 10px;
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }
+}
 
-  .header-spacer {
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.header-spacer {
     flex: 1 1 auto;
-  }
+}
+
+.rb-ajust-form  {
+    display: inline-flex;
+    flex-direction: column;
+}
+  
+.rb-ajust-form {
+    margin: 2px 0;
+}
+
+.cb-ajust-form  {
+    display: inline-flex;
+    flex-direction: column;
+}
+  
+.cb-ajust-form {
+    margin: 13px 0;
+}
+
+.label-radio-group {
+    font-size: 10px;
+    margin: 0;
+    color: #757575;
+    margin-top: -5px;
+    
+}

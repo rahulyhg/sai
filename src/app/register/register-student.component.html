@@ -1,5 +1,5 @@
 <div class="container">
-    <form  (submit)="signup()" class="form mt-4 ">
+    <form [formGroup]="registerStudentForm" (submit)="submit()" class="form mt-4 ">
 
 
         <mat-accordion class="example-headers-align">
@@ -10,7 +10,28 @@
                     </mat-panel-title>
                     <mat-panel-description>
                     </mat-panel-description>
-                    <mat-icon>account_circle</mat-icon>
+                    <mat-icon style="color: lightgrey" *ngIf="  
+                                        (registerStudentForm.get('name').errors || 
+                                        registerStudentForm.get('cpf').errors ||
+                                        registerStudentForm.get('rg').errors ||
+                                        registerStudentForm.get('shipping').errors ||
+                                        registerStudentForm.get('birth').errors ||
+                                        registerStudentForm.get('studentPhone').errors ||
+                                        registerStudentForm.get('hand').errors ||
+                                        registerStudentForm.get('underAge').errors)
+                                    "
+                    >account_circle</mat-icon>
+                    <mat-icon style="color: #03a9f4" *ngIf="  
+                                        (!registerStudentForm.get('name').errors && 
+                                        !registerStudentForm.get('cpf').errors &&
+                                        !registerStudentForm.get('rg').errors &&
+                                        !registerStudentForm.get('shipping').errors &&
+                                        !registerStudentForm.get('birth').errors &&
+                                        !registerStudentForm.get('studentPhone').errors &&
+                                        !registerStudentForm.get('hand').errors &&
+                                        !registerStudentForm.get('underAge').errors)
+                                    "
+                    >account_circle</mat-icon>
                 </mat-expansion-panel-header>
             
                 <!-- NOME, CPF, RG, ÓRGÃO EXPEDIDOR -->
@@ -18,22 +39,23 @@
                     <div class="row">
                         <div class="col-md-4" >
                             <mat-form-field class="width-100">
-                                    <input matInput placeholder="Nome">
+                                    <input formControlName="name" matInput placeholder="Nome">
                             </mat-form-field>
                         </div>
                         <div class="col-md-3" >
                             <mat-form-field class="width-100">
-                                    <input matInput placeholder="CPF">
+                                    <input formControlName="cpf" [textMask]="{mask: maskCpf}" 
+                                            matInput placeholder="CPF">
                             </mat-form-field>
                         </div>
                         <div class="col-md-3" >
                             <mat-form-field class="width-100">
-                                    <input matInput placeholder="RG">
+                                    <input formControlName="rg" [textMask]="{mask: maskNumber}" matInput placeholder="RG">
                             </mat-form-field>
                         </div>
                         <div class="col-md-2" >
                             <mat-form-field class="width-100">
-                                    <input matInput placeholder="Órgão Expedidor">
+                                    <input formControlName="shipping" matInput placeholder="Órgão Expedidor">
                             </mat-form-field>
                         </div>
                     </div>
@@ -44,29 +66,34 @@
                         <div class="row">
                             <div class="col-md-3" >
                                 <mat-form-field class="width-100">
-                                        <input matInput placeholder="Nascimento">
+                                    <input formControlName="birth"  matInput [matDatepicker]="picker" placeholder="Nascimento">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
                                 </mat-form-field>
                             </div>
                             <div class="col-md-3" >
                                 <mat-form-field class="width-100">
-                                        <input matInput placeholder="Celular">
+                                        <input formControlName="studentPhone" [textMask]="{mask: maskPhone}" matInput placeholder="Celular">
                                 </mat-form-field>
                             </div>
-                            <div class="col-md-3" >
-                                <mat-form-field class="width-100">
-                                        <input matInput placeholder="Mão dominante">
-                                </mat-form-field>
+                            <div class="col-md-1"></div>
+                            <div class="col-md-3">
+                                <div class="label-radio-group">
+                                    Mão Dominante
+                                </div>
+                                <mat-radio-group                            formControlName="hand">
+                                    <mat-radio-button class="rb-ajust-form mr-3" value="e">Esquerda</mat-radio-button>
+                                    <mat-radio-button class="rb-ajust-form" value="d">Direita</mat-radio-button>
+                                </mat-radio-group>
                             </div>
-                            <div class="col-md-3" >
-                                <mat-form-field class="width-100">
-                                        <input matInput placeholder="Menor de idade?">
-                                </mat-form-field>
+                            <div class="col-md-2 exemple-section" >
+                                <mat-checkbox formControlName="underAge" class="cb-ajust-form">Menor de idade</mat-checkbox>
                             </div>
                         </div>
                 </div>
             
                 <mat-action-row>
-                    <button mat-button color="primary" (click)="nextStep(); false">Next</button>
+                    <button mat-button color="primary" (click)="nextStep(); false">Próximo</button>
                 </mat-action-row>
             </mat-expansion-panel>
             
@@ -78,7 +105,27 @@
                     <mat-panel-description>
                         
                     </mat-panel-description>
-                    <mat-icon>map</mat-icon>
+                    <mat-icon style="color: lightgrey" *ngIf="  
+                            (registerStudentForm.get('address').errors || 
+                            registerStudentForm.get('number').errors ||
+                            registerStudentForm.get('district').errors ||
+                            registerStudentForm.get('complement').errors ||
+                            registerStudentForm.get('city').errors ||
+                            registerStudentForm.get('state').errors ||
+                            registerStudentForm.get('cep').errors)
+                            "
+                >map</mat-icon>
+
+                <mat-icon style="color: #03a9f4" *ngIf="  
+                            (!registerStudentForm.get('address').errors && 
+                            !registerStudentForm.get('number').errors &&
+                            !registerStudentForm.get('district').errors &&
+                            !registerStudentForm.get('complement').errors &&
+                            !registerStudentForm.get('city').errors &&
+                            !registerStudentForm.get('state').errors &&
+                            !registerStudentForm.get('cep').errors)
+                            "
+                >map</mat-icon>
                 </mat-expansion-panel-header>
             
                 <!-- ENDEREÇO, NUMERO, BAIRRO, COMPLEMENTO -->
@@ -86,22 +133,22 @@
                     <div class="row">
                         <div class="col-md-4" >
                             <mat-form-field class="width-100">
-                                    <input matInput placeholder="Endereço">
+                                    <input formControlName="address" matInput placeholder="Endereço">
                             </mat-form-field>
                         </div>
                         <div class="col-md-1" >
                             <mat-form-field class="width-100">
-                                    <input matInput placeholder="Número">
+                                    <input formControlName="number"  [textMask]="{mask: maskNumber}" matInput placeholder="Número">
                             </mat-form-field>
                         </div>
                         <div class="col-md-3" >
                             <mat-form-field class="width-100">
-                                    <input matInput placeholder="Bairro">
+                                    <input formControlName="district" matInput placeholder="Bairro">
                             </mat-form-field>
                         </div>
                         <div class="col-md-4" >
                             <mat-form-field class="width-100">
-                                    <input matInput placeholder="Complemento">
+                                    <input formControlName="complement" matInput placeholder="Complemento">
                             </mat-form-field>
                         </div>
                     </div>
@@ -112,25 +159,25 @@
                     <div class="row">
                         <div class="col-md-6" >
                             <mat-form-field class="width-100">
-                                    <input matInput placeholder="Cidade">
+                                    <input formControlName="city" matInput placeholder="Cidade">
                             </mat-form-field>
                         </div>
                         <div class="col-md-2" >
                             <mat-form-field class="width-100">
-                                    <input matInput placeholder="Estado">
+                                    <input formControlName="state" matInput placeholder="Estado">
                             </mat-form-field>
                         </div>
                         <div class="col-md-4" >
                             <mat-form-field class="width-100">
-                                    <input matInput placeholder="CEP">
+                                    <input formControlName="cep" [textMask]="{mask: maskCEP}" matInput placeholder="CEP">
                             </mat-form-field>
                         </div>
                     </div>
                 </div>
             
                 <mat-action-row>
-                    <button mat-button type="button" color="warn" (click)="prevStep(); false">Previous</button>
-                    <button mat-button type="button" color="primary" (click)="nextStep(); false">Next</button>
+                    <button mat-button type="button" color="warn" (click)="prevStep(); false">Anterior</button>
+                    <button mat-button type="button" color="primary" (click)="nextStep(); false">Próximo</button>
                 </mat-action-row>
             </mat-expansion-panel>
             
@@ -141,7 +188,23 @@
                     </mat-panel-title>
                     <mat-panel-description>
                     </mat-panel-description>
-                    <mat-icon>face</mat-icon>
+                    <mat-icon style="color: lightgrey" *ngIf="  
+                            (registerStudentForm.get('responsibleName').errors || 
+                            registerStudentForm.get('responsibleParentage').errors ||
+                            registerStudentForm.get('responsiblePhone').errors ||
+                            registerStudentForm.get('responsibleCpf').errors ||
+                            registerStudentForm.get('responsibleRg').errors)
+                            "
+                >face</mat-icon>
+
+                <mat-icon style="color: #03a9f4" *ngIf="  
+                            (!registerStudentForm.get('responsibleName').errors && 
+                            !registerStudentForm.get('responsibleParentage').errors &&
+                            !registerStudentForm.get('responsiblePhone').errors &&
+                            !registerStudentForm.get('responsibleCpf').errors &&
+                            !registerStudentForm.get('responsibleRg').errors)
+                            "
+                >face</mat-icon>
                 </mat-expansion-panel-header>
             
                 <!-- RESPONSAVEL: NOME, PARENTESCO, CELULAR -->
@@ -149,17 +212,17 @@
                     <div class="row">
                         <div class="col-md-6" >
                             <mat-form-field class="width-100">
-                                    <input matInput placeholder="Nome do responsável">
+                                    <input formControlName="responsibleName" matInput placeholder="Nome do responsável">
                             </mat-form-field>
                         </div>
                         <div class="col-md-4" >
                             <mat-form-field class="width-100">
-                                    <input matInput placeholder="Parentesco">
+                                    <input formControlName="responsibleParentage" matInput placeholder="Parentesco">
                             </mat-form-field>
                         </div>
                         <div class="col-md-2" >
                             <mat-form-field class="width-100">
-                                    <input matInput placeholder="Celular">
+                                    <input formControlName="responsiblePhone" [textMask]="{mask: maskPhone}" matInput placeholder="Celular">
                             </mat-form-field>
                         </div>
                     </div>
@@ -170,22 +233,23 @@
                     <div class="row">
                         <div class="col-md-3" >
                             <mat-form-field class="width-100">
-                                    <input matInput placeholder="CPF">
+                                    <input formControlName="responsibleCpf" [textMask]="{mask: maskCpf}" matInput placeholder="CPF">
                             </mat-form-field>
                         </div>
                         <div class="col-md-3" >
                             <mat-form-field class="width-100">
-                                    <input matInput placeholder="RG">
+                                    <input formControlName="responsibleRg" [textMask]="{mask: maskNumber}" matInput placeholder="RG">
                             </mat-form-field>
                         </div>
                     </div>
                 </div>
             
                 <mat-action-row>
-                    <button mat-button type="button" color="warn" (click)="prevStep(); false">Previous</button>
-                    <button mat-button type="button" color="primary" (click)="nextStep(); false">Next</button>
+                    <button mat-button type="button" color="warn" (click)="prevStep(); false">Anterior</button>
+                    <button mat-button type="button" color="primary" (click)="nextStep(); false">Próximo</button>
                 </mat-action-row>
             </mat-expansion-panel>
+
 
             <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" hideToggle>
                 <mat-expansion-panel-header>
@@ -194,7 +258,19 @@
                     </mat-panel-title>
                     <mat-panel-description>
                     </mat-panel-description>
-                    <mat-icon>warning</mat-icon>
+                    <mat-icon style="color: lightgrey" *ngIf="  
+                            (registerStudentForm.get('emergencyName').errors || 
+                            registerStudentForm.get('emergencyParentage').errors ||
+                            registerStudentForm.get('emergencyPhone').errors)
+                            "
+                    >warning</mat-icon>
+
+                    <mat-icon style="color: #03a9f4" *ngIf="  
+                            (!registerStudentForm.get('emergencyName').errors && 
+                            !registerStudentForm.get('emergencyParentage').errors &&
+                            !registerStudentForm.get('emergencyPhone').errors)
+                            "
+                    >warning</mat-icon>
                 </mat-expansion-panel-header>
             
                 <!-- EMERGENCIA: NOME, PARENTESCO, CELULAR -->
@@ -202,27 +278,28 @@
                     <div class="row">
                         <div class="col-md-6" >
                             <mat-form-field class="width-100">
-                                    <input matInput placeholder="Nome do contato">
+                                    <input formControlName="emergencyName" matInput placeholder="Nome do contato">
                             </mat-form-field>
                         </div>
                         <div class="col-md-4" >
                             <mat-form-field class="width-100">
-                                    <input matInput placeholder="Relação (ex: mãe, amigo, etc)">
+                                    <input formControlName="emergencyParentage" matInput placeholder="Relação (ex: mãe, amigo, etc)">
                             </mat-form-field>
                         </div>
                         <div class="col-md-2" >
                             <mat-form-field class="width-100">
-                                    <input matInput placeholder="Celular">
+                                    <input formControlName="emergencyPhone" [textMask]="{mask: maskPhone}" matInput placeholder="Celular">
                             </mat-form-field>
                         </div>
                     </div>
                 </div>
             
                 <mat-action-row>
-                    <button mat-button type="button" color="warn" (click)="prevStep(); false">Previous</button>
-                    <button mat-button type="button" color="primary" (click)="nextStep(); false">Next</button>
+                    <button mat-button type="button" color="warn" (click)="prevStep(); false">Anterior</button>
+                    <button mat-button type="button" color="primary" (click)="nextStep(); false">Próximo</button>
                 </mat-action-row>
             </mat-expansion-panel>
+
 
             <mat-expansion-panel [expanded]="step === 5" (opened)="setStep(5)" hideToggle>
                 <mat-expansion-panel-header>
@@ -231,28 +308,58 @@
                     </mat-panel-title>
                     <mat-panel-description>
                     </mat-panel-description>
-                    <mat-icon>alarm</mat-icon>
+                    <mat-icon style="color: lightgrey" *ngIf="  
+                            (registerStudentForm.get('classPeriod').errors || 
+                            registerStudentForm.get('classCourse').errors)
+                            "
+                    >alarm</mat-icon>
+
+                    <mat-icon style="color: #03a9f4" *ngIf="  
+                            (!registerStudentForm.get('classPeriod').errors && 
+                            !registerStudentForm.get('classCourse').errors)
+                            "
+                    >alarm</mat-icon>
                 </mat-expansion-panel-header>
             
                 <!-- HORARIO: PERIODO, TIPO DE CURSO -->
                 <div class="form-group">
                     <div class="row">
-                        <div class="col-md-6" >
-                            <mat-form-field class="width-100">
-                                    <input matInput placeholder="Periodo das Aulas">
-                            </mat-form-field>
+                        <div class="col-md-5" >
+                            <div class="label-radio-group">
+                                Período
+                            </div>
+                            <mat-radio-group formControlName="classPeriod">
+                                <mat-radio-button class="rb-ajust-form mr-5"                
+                                    value="matutino">Matutino
+                                </mat-radio-button>
+                                <mat-radio-button class="rb-ajust-form mr-5" 
+                                    value="vespertino">Vespertino
+                                </mat-radio-button>
+                                <mat-radio-button class="rb-ajust-form" 
+                                    value="noturno">Noturno
+                                </mat-radio-button>
+                            </mat-radio-group>
                         </div>
-                        <div class="col-md-6" >
-                            <mat-form-field class="width-100">
-                                    <input matInput placeholder="Extensivo ou Semiextensivo">
-                            </mat-form-field>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-5">
+                            <div class="label-radio-group">
+                                Tipo de Curso
+                            </div>
+                            <mat-radio-group formControlName="classCourse">
+                                <mat-radio-button class="rb-ajust-form mr-5"                
+                                    value="matutino">Extensivo
+                                </mat-radio-button>
+                                <mat-radio-button class="rb-ajust-form mr-5" 
+                                    value="vespertino">Semiextensivo
+                                </mat-radio-button>
+                            </mat-radio-group>
                         </div>
                     </div>
                 </div>
             
                 <mat-action-row>
-                    <button mat-button type="button" color="warn" (click)="prevStep(); false">Previous</button>
-                    <button mat-button type="button" color="primary" (click)="nextStep(); false">Next</button>
+                    <button mat-button type="button" color="warn" (click)="prevStep(); false">Anterior</button>
+                    <button mat-button type="button" color="primary" (click)="nextStep(); false">Próximo</button>
                 </mat-action-row>
             </mat-expansion-panel>
 
@@ -263,30 +370,58 @@
                     </mat-panel-title>
                     <mat-panel-description>
                     </mat-panel-description>
-                    <mat-icon>import_contacts</mat-icon>
+                    <mat-icon style="color: lightgrey" *ngIf="  
+                            (registerStudentForm.get('formed').errors || 
+                            registerStudentForm.get('formedYear').errors ||
+                            registerStudentForm.get('formedSchool').errors ||
+                            registerStudentForm.get('formedSchoolCity').errors ||
+                            registerStudentForm.get('preEntrance').errors ||
+                            registerStudentForm.get('preEntranceCity').errors ||
+                            registerStudentForm.get('preEntranceName').errors)
+                            "
+                    >import_contacts</mat-icon>
+
+                    <mat-icon style="color: #03a9f4" *ngIf="  
+                            (!registerStudentForm.get('formed').errors && 
+                            !registerStudentForm.get('formedYear').errors &&
+                            !registerStudentForm.get('formedSchool').errors &&
+                            !registerStudentForm.get('formedSchoolCity').errors &&
+                            !registerStudentForm.get('preEntrance').errors &&
+                            !registerStudentForm.get('preEntranceCity').errors &&
+                            !registerStudentForm.get('preEntranceName').errors)
+                            "
+                    >import_contacts</mat-icon>
                 </mat-expansion-panel-header>
             
                 <!-- HISTÓRICO ESCOLAR: FORMADO, ANO, ESCOLA, CIDADE -->
                 <div class="form-group">
                     <div class="row">
-                        <div class="col-md-4" >
-                            <mat-form-field class="width-100">
-                                    <input matInput placeholder="Formado no ensino médio?">
-                            </mat-form-field>
+                        <div class="col-md-3" >
+                            <div class="label-radio-group">
+                                Formado no Ensino Médio
+                            </div>
+                            <mat-radio-group formControlName="formed">
+                                <mat-radio-button class="rb-ajust-form mr-5"                
+                                    value="S">Sim
+                                </mat-radio-button>
+                                <mat-radio-button class="rb-ajust-form mr-5" 
+                                    value="N">Não
+                                </mat-radio-button>
+                            </mat-radio-group>
                         </div>
                         <div class="col-md-2" >
                             <mat-form-field class="width-100">
-                                    <input matInput placeholder="Ano de conslusão">
+                                <input formControlName="formedYear" [textMask]="{mask: maskNumber}" matInput placeholder="Ano de conclusão">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4" >
+                            <mat-form-field class="width-100">
+                                    <input formControlName="formedSchool" matInput placeholder="Escola onde estudou/estuda">
                             </mat-form-field>
                         </div>
                         <div class="col-md-3" >
                             <mat-form-field class="width-100">
-                                    <input matInput placeholder="Escola onde estudou/estuda">
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-3" >
-                            <mat-form-field class="width-100">
-                                    <input matInput placeholder="Cidade da escola">
+                                    <input formControlName="formedSchoolCity" matInput placeholder="Cidade da escola">
                             </mat-form-field>
                         </div>
                     </div>
@@ -295,27 +430,35 @@
                 <!-- PRÉ VESTIBULAR: FORMADO, ANO, ESCOLA, CIDADE -->
                 <div class="form-group">
                     <div class="row">
+                        <div class="col-md-3" >
+                            <div class="label-radio-group">
+                                Já fez Pré-vestibular anteriormente?
+                            </div>
+                            <mat-radio-group                                formControlName="preEntrance">
+                                <mat-radio-button mat-color="primary "class="rb-ajust-form mr-5"                
+                                    value="S">Sim
+                                </mat-radio-button>
+                                <mat-radio-button class="rb-ajust-form mr-5" 
+                                    value="N">Não
+                                </mat-radio-button>
+                            </mat-radio-group>
+                        </div>
                         <div class="col-md-4" >
                             <mat-form-field class="width-100">
-                                    <input matInput placeholder="já fez pré-vestibular anteriormente?">
+                                    <input formControlName="preEntranceName" matInput placeholder="instituição">
                             </mat-form-field>
                         </div>
                         <div class="col-md-3" >
                             <mat-form-field class="width-100">
-                                    <input matInput placeholder="instituição">
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-3" >
-                            <mat-form-field class="width-100">
-                                    <input matInput placeholder="Cidade">
+                                    <input formControlName="preEntranceCity" matInput placeholder="Cidade">
                             </mat-form-field>
                         </div>
                     </div>
                 </div>
             
                 <mat-action-row>
-                    <button mat-button type="button" color="warn" (click)="prevStep(); false">Previous</button>
-                    <button mat-button type="button" color="primary" (click)="nextStep(); false">Next</button>
+                    <button mat-button type="button" color="warn" (click)="prevStep(); false">Anterior</button>
+                    <button mat-button type="button" color="primary" (click)="nextStep(); false">Próximo</button>
                 </mat-action-row>
             </mat-expansion-panel>
 
@@ -326,7 +469,21 @@
                     </mat-panel-title>
                     <mat-panel-description>
                     </mat-panel-description>
-                    <mat-icon>school</mat-icon>
+                    
+                    <mat-icon style="color: lightgrey" *ngIf="  
+                            (registerStudentForm.get('pretensionCourses').errors || 
+                            registerStudentForm.get('pretensionUniversities').errors ||
+                            registerStudentForm.get('enem').errors)
+                            "
+                    >school</mat-icon>
+
+                    <mat-icon style="color: #03a9f4" *ngIf="  
+                            (!registerStudentForm.get('pretensionCourses').errors && 
+                            !registerStudentForm.get('pretensionUniversities').errors &&
+                            !registerStudentForm.get('enem').errors)
+                            "
+                    >school</mat-icon>
+                    
                 </mat-expansion-panel-header>
             
                 <!-- PRETENÇÃO ESCOLAR: CURSOS, INSTITUIÇÕES, ENEM -->
@@ -334,25 +491,33 @@
                     <div class="row">
                         <div class="col-md-5" >
                             <mat-form-field class="width-100">
-                                    <input matInput placeholder="Cursos que pretende prestar vestibular (Ex: 'Medicina, Direito')">
+                                    <input formControlName="pretensionCourses" matInput placeholder="Cursos que pretende prestar vestibular (Ex: 'Medicina, Direito')">
                             </mat-form-field>
                         </div>
                         <div class="col-md-4" >
                             <mat-form-field class="width-100">
-                                    <input matInput placeholder="Instituições pretendidas (Ex: 'UFSC, UDESC')">
+                                    <input formControlName="pretensionUniversities" matInput placeholder="Instituições pretendidas (Ex: 'UFSC, UDESC')">
                             </mat-form-field>
                         </div>
                         <div class="col-md-3" >
-                            <mat-form-field class="width-100">
-                                    <input matInput placeholder="irá prestar o ENEM?">
-                            </mat-form-field>
+                            <div class="label-radio-group">
+                                Irá fazer o ENEM?
+                            </div>
+                            <mat-radio-group                                formControlName="enem">
+                                <mat-radio-button mat-color="primary "class="rb-ajust-form mr-5"                
+                                    value="S">Sim
+                                </mat-radio-button>
+                                <mat-radio-button class="rb-ajust-form mr-5" 
+                                    value="N">Não
+                                </mat-radio-button>
+                            </mat-radio-group>
                         </div>
                     </div>
                 </div>
 
                 <mat-action-row>
-                    <button mat-button type="button" color="warn" (click)="prevStep(); false">Previous</button>
-                    <button mat-button type="button" color="primary" (click)="nextStep(); false">Next</button>
+                    <button mat-button type="button" color="warn" (click)="prevStep(); false">Anterior</button>
+                    <button mat-button type="button" color="primary" (click)="nextStep(); false">Próximo</button>
                 </mat-action-row>
             </mat-expansion-panel>
 
@@ -363,20 +528,49 @@
                     </mat-panel-title>
                     <mat-panel-description>
                     </mat-panel-description>
-                    <mat-icon>accessibility</mat-icon>
+
+                    <mat-icon style="color: lightgrey" *ngIf="  
+                            (registerStudentForm.get('controlledMedication').errors || 
+                            registerStudentForm.get('controlledMedicationDescription').errors ||
+                            registerStudentForm.get('specialNeed').errors ||
+                            registerStudentForm.get('specialNeedDescription').errors ||
+                            registerStudentForm.get('allergy').errors ||
+                            registerStudentForm.get('allergyDescription').errors)
+                            "
+                    >accessibility</mat-icon>
+
+                    <mat-icon style="color: #03a9f4" *ngIf="  
+                            (!registerStudentForm.get('controlledMedication').errors && 
+                            !registerStudentForm.get('controlledMedicationDescription').errors &&
+                            !registerStudentForm.get('specialNeed').errors &&
+                            !registerStudentForm.get('specialNeedDescription').errors &&
+                            !registerStudentForm.get('allergy').errors &&
+                            !registerStudentForm.get('allergyDescription').errors)
+                            "
+                    >accessibility</mat-icon>
+
                 </mat-expansion-panel-header>
             
                 <!-- NECESSIDADES ESPECIAIS: MEDICAMENTOS -->
                 <div class="form-group">
                     <div class="row">
-                        <div class="col-md-5" >
-                            <mat-form-field class="width-100">
-                                    <input matInput placeholder="Usa medicamento controlado?">
-                            </mat-form-field>
+                        <div class="col-md-3" >
+                            <div class="label-radio-group">
+                                Usa medicamento controlado
+                            </div>
+                            <mat-radio-group 
+                                formControlName="controlledMedication">
+                                <mat-radio-button mat-color="primary "class="rb-ajust-form mr-5"                
+                                    value="S">Sim
+                                </mat-radio-button>
+                                <mat-radio-button class="rb-ajust-form mr-5" 
+                                    value="N">Não
+                                </mat-radio-button>
+                            </mat-radio-group>
                         </div>
-                        <div class="col-md-7" >
+                        <div class="col-md-9" >
                             <mat-form-field class="width-100">
-                                    <input matInput placeholder="Se sim, quais?">
+                                    <input formControlName="controlledMedicationDescription" matInput placeholder="Se sim, quais?">
                             </mat-form-field>
                         </div>
                     </div>
@@ -385,14 +579,23 @@
                 <!-- NECESSIDADES ESPECIAIS: NECESSIDADES -->
                 <div class="form-group">
                     <div class="row">
-                        <div class="col-md-5" >
-                            <mat-form-field class="width-100">
-                                    <input matInput placeholder="É portador de Necessidades especiais?">
-                            </mat-form-field>
+                        <div class="col-md-3" >
+                            <div class="label-radio-group">
+                                Portador de Necessidades especiais
+                            </div>
+                            <mat-radio-group 
+                                formControlName="specialNeed">
+                                <mat-radio-button mat-color="primary "class="rb-ajust-form mr-5"                
+                                    value="S">Sim
+                                </mat-radio-button>
+                                <mat-radio-button class="rb-ajust-form mr-5" 
+                                    value="N">Não
+                                </mat-radio-button>
+                            </mat-radio-group>
                         </div>
-                        <div class="col-md-7" >
+                        <div class="col-md-9" >
                             <mat-form-field class="width-100">
-                                    <input matInput placeholder="Se sim, quais?">
+                                    <input formControlName="specialNeedDescription" matInput placeholder="Se sim, quais?">
                             </mat-form-field>
                         </div>
                     </div>
@@ -401,22 +604,31 @@
                 <!-- NECESSIDADES ESPECIAIS: ALERGIAS -->
                 <div class="form-group">
                     <div class="row">
-                        <div class="col-md-5" >
-                            <mat-form-field class="width-100">
-                                    <input matInput placeholder="Tem alergias?">
-                            </mat-form-field>
+                        <div class="col-md-3" >
+                            <div class="label-radio-group">
+                                Possui alergias
+                            </div>
+                            <mat-radio-group 
+                                formControlName="allergy">
+                                <mat-radio-button mat-color="primary "class="rb-ajust-form mr-5"                
+                                    value="S">Sim
+                                </mat-radio-button>
+                                <mat-radio-button class="rb-ajust-form mr-5" 
+                                    value="N">Não
+                                </mat-radio-button>
+                            </mat-radio-group>
                         </div>
-                        <div class="col-md-7" >
+                        <div class="col-md-9" >
                             <mat-form-field class="width-100">
-                                    <input matInput placeholder="Se sim, quais?">
+                                    <input formControlName="allergyDescription" matInput placeholder="Se sim, quais?">
                             </mat-form-field>
                         </div>
                     </div>
                 </div>
 
                 <mat-action-row>
-                    <button mat-button type="button" color="warn" (click)="prevStep(); false">Previous</button>
-                    <button mat-button type="button" color="primary" (click)="nextStep(); false">Next</button>
+                    <button mat-button type="button" color="warn" (click)="prevStep(); false">Anterior</button>
+                    <button mat-button type="button" color="primary" (click)="nextStep(); false">Próximo</button>
                 </mat-action-row>
             </mat-expansion-panel>
 
@@ -427,7 +639,16 @@
                     </mat-panel-title>
                     <mat-panel-description>
                     </mat-panel-description>
-                    <mat-icon>info</mat-icon>
+
+                    <mat-icon style="color: lightgrey" *ngIf="  
+                            (registerStudentForm.get('courseInformation').errors)
+                            "
+                    >info</mat-icon>
+
+                    <mat-icon style="color: #03a9f4" *ngIf="  
+                            (!registerStudentForm.get('courseInformation').errors)
+                            "
+                    >info</mat-icon>
                 </mat-expansion-panel-header>
 
                
@@ -436,15 +657,15 @@
                     <div class="row">
                         <div class="col-md-12" >
                             <mat-form-field class="width-100">
-                                    <input matInput placeholder="Como ficou sabendo do cursinho?">
+                                    <input formControlName="courseInformation" matInput placeholder="Como ficou sabendo do cursinho?">
                             </mat-form-field>
                         </div>
                     </div>
                 </div>
 
                 <mat-action-row>
-                    <button mat-button type="button" color="warn" (click)="prevStep(); false">Previous</button>
-                    <button mat-button type="button" color="primary" (click)="nextStep(); false">Next</button>
+                    <button mat-button type="button" color="warn" (click)="prevStep(); false">Anterior</button>
+                    <button mat-button type="button" color="primary" (click)="nextStep(); false">Próximo</button>
                 </mat-action-row>
             </mat-expansion-panel>
 
@@ -455,26 +676,46 @@
                     </mat-panel-title>
                     <mat-panel-description>
                     </mat-panel-description>
-                    <mat-icon>attach_money</mat-icon>
+                    <mat-icon style="color: lightgrey" *ngIf="  
+                            (registerStudentForm.get('paymentCash').errors || 
+                            registerStudentForm.get('paymentCashAmounth').errors ||
+                            registerStudentForm.get('paymentCashDiscount').errors ||
+                            registerStudentForm.get('paymentInstallment').errors ||
+                            registerStudentForm.get('paymentInstallmentParcels').errors ||
+                            registerStudentForm.get('paymentInstallmentParcelsValue').errors)
+                            "
+                    >attach_money</mat-icon>
+
+                    <mat-icon style="color: #03a9f4" *ngIf="  
+                            (!registerStudentForm.get('paymentCash').errors && 
+                            !registerStudentForm.get('paymentCashAmounth').errors &&
+                            !registerStudentForm.get('paymentCashDiscount').errors &&
+                            !registerStudentForm.get('paymentInstallment').errors &&
+                            !registerStudentForm.get('paymentInstallmentParcels').errors &&
+                            !registerStudentForm.get('paymentInstallmentParcelsValue').errors)
+                            "
+                    >attach_money</mat-icon>
                 </mat-expansion-panel-header>
 
                
                 <!-- CONDIÇÕES DE PAGAMENTO:  À VISTA -->
                 <div class="form-group">
                     <div class="row">
-                        <div class="col-md-6" >
-                            <mat-form-field class="width-100">
-                                    <input matInput placeholder="Pagamento à vista">
-                            </mat-form-field>
+                        <div class="col-md-3" >
+                            <mat-checkbox 
+                            formControlName="paymentCash"
+                            class="cb-ajust-form">Pagamento à vista</mat-checkbox>
                         </div>
                         <div class="col-md-2" >
                             <mat-form-field class="width-100">
-                                    <input matInput placeholder="Percentual de Desconto">
+                                    <input 
+                                        formControlName="paymentCashDiscount"
+                                        [textMask]="{mask: maskNumber}" matInput placeholder="Percentual de Desconto">
                             </mat-form-field>
                         </div>
                         <div class="col-md-4" >
                             <mat-form-field class="width-100">
-                                    <input matInput placeholder="Valor com desconto aplicado">
+                                    <input formControlName="paymentCashAmounth" [textMask]="{mask: maskReal}" matInput placeholder="Valor com desconto aplicado">
                             </mat-form-field>
                         </div>
                     </div>
@@ -483,26 +724,24 @@
                 <!-- CONDIÇÕES DE PAGAMENTO:  PARCELADO -->
                 <div class="form-group">
                     <div class="row">
-                        <div class="col-md-6" >
+                        <div class="col-md-3" >
+                            <mat-checkbox formControlName="paymentInstallment" class="cb-ajust-form">Pagamento parcelado</mat-checkbox>
+                        </div>
+                        <div class="col-md-3" >
                             <mat-form-field class="width-100">
-                                    <input matInput placeholder="Pagamento parcelado">
+                                    <input formControlName="paymentInstallmentParcels" [textMask]="{mask: maskNumber}" matInput placeholder="1 + ">
                             </mat-form-field>
                         </div>
                         <div class="col-md-3" >
                             <mat-form-field class="width-100">
-                                    <input matInput placeholder="1 + ">
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-3" >
-                            <mat-form-field class="width-100">
-                                    <input matInput placeholder="Valor da Parcela">
+                                    <input formControlName="paymentInstallmentParcelsValue" [textMask]="{mask: maskReal}" matInput placeholder="Valor da Parcela">
                             </mat-form-field>
                         </div>
                     </div>
                 </div>
 
                 <mat-action-row>
-                    <button mat-button type="button" color="warn" (click)="prevStep(); false">Previous</button>
+                    <button mat-button type="button" color="warn" (click)="prevStep(); false">Anterior</button>
                     <button mat-button type="button" color="primary" (click)="nextStep(); false">End</button>
                 </mat-action-row>
             </mat-expansion-panel>

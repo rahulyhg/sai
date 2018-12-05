@@ -4,13 +4,15 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatCardModule, MatButtonModule, MatExpansionModule,
         MatDatepickerModule, MatFormFieldModule, MatIconModule,
-        MatNativeDateModule, MatInputModule } from '@angular/material';
+        MatNativeDateModule, MatInputModule, MatRadioModule, MatCheckboxModule } from '@angular/material';
+import { TextMaskModule } from 'angular2-text-mask';
 
 @NgModule({
     declarations: [RegisterStudentComponent],
     imports: [
         CommonModule,
         ReactiveFormsModule,
+        FormsModule,
         MatCardModule,
         MatButtonModule,
         MatExpansionModule,
@@ -19,7 +21,9 @@ import { MatCardModule, MatButtonModule, MatExpansionModule,
         MatInputModule,
         MatIconModule,
         MatNativeDateModule,
-        FormsModule
+        TextMaskModule,
+        MatRadioModule,
+        MatCheckboxModule
     ]
 })
 
