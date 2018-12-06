@@ -6,6 +6,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuard } from './core/auth/auth.guard';
 import { SignInGuard } from './core/auth/signin.guard';
 import { RegisterStudentComponent } from './register/register-student.component';
+import { ContractComponent } from './register/contract/contract.component';
 
 
 const routes: Routes = [
@@ -32,6 +33,11 @@ const routes: Routes = [
     {
         path: 'register/student',
         component: RegisterStudentComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'register/contract',
+        component: ContractComponent,
         canActivate: [AuthGuard]
     }
 ];

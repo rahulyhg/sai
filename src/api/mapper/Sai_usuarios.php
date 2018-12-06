@@ -19,7 +19,7 @@
 ################################################################################
 /**
  * Classe generada para a tabela "sai_usuarios"
- * in 2018-12-05
+ * in 2018-12-06
  * @author Hugo Ferreira da Silva
  * @link http://www.hufersil.com.br/lumine
  * @package mapper
@@ -71,7 +71,7 @@ class Sai_usuarios extends Lumine_Base {
     public $pre_entrance_name;
     public $pre_entrance_city;
     public $pretension_courses;
-    public $pretensionUniversities;
+    public $pretension_universities;
     public $enem;
     public $controlled_medication;
     public $controlled_medication_desc;
@@ -140,7 +140,7 @@ class Sai_usuarios extends Lumine_Base {
         $this->_addField('pre_entrance_name', 'pre_entrance_name', 'varchar', 100, array('notnull' => true));
         $this->_addField('pre_entrance_city', 'pre_entrance_city', 'varchar', 100, array('notnull' => true));
         $this->_addField('pretension_courses', 'pretension_courses', 'varchar', 200, array('notnull' => true));
-        $this->_addField('pretensionUniversities', 'pretensionUniversities', 'varchar', 250, array('notnull' => true));
+        $this->_addField('pretension_universities', 'pretension_universities', 'varchar', 250, array('notnull' => true));
         $this->_addField('enem', 'enem', 'char', 1, array('notnull' => true));
         $this->_addField('controlled_medication', 'controlled_medication', 'char', 1, array('notnull' => true));
         $this->_addField('controlled_medication_desc', 'controlled_medication_desc', 'varchar', 150, array('notnull' => true));
@@ -151,10 +151,10 @@ class Sai_usuarios extends Lumine_Base {
         $this->_addField('course_information', 'course_information', 'varchar', 50, array('notnull' => true));
         $this->_addField('payment_cash', 'payment_cash', 'boolean', 1, array('notnull' => true));
         $this->_addField('payment_cash_discount', 'payment_cash_discount', 'boolean', 4, array('notnull' => true));
-        $this->_addField('payment_cash_amounth', 'payment_cash_amounth', 'int', 11, array('notnull' => true));
+        $this->_addField('payment_cash_amounth', 'payment_cash_amounth', 'varchar', 11, array('notnull' => true));
         $this->_addField('payment_installment', 'payment_installment', 'boolean', 1, array('notnull' => true));
         $this->_addField('payment_installment_parcels', 'payment_installment_parcels', 'boolean', 4, array('notnull' => true));
-        $this->_addField('payment_installment_parcels_value', 'payment_installment_parcels_value', 'smallint', 6, array('notnull' => true));
+        $this->_addField('payment_installment_parcels_value', 'payment_installment_parcels_value', 'varchar', 11, array('notnull' => true));
         $this->_addField('excluido', 'excluido', 'char', 1, array('notnull' => true, 'default' => 'N'));
 
         

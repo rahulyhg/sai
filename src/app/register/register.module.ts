@@ -6,9 +6,14 @@ import { MatCardModule, MatButtonModule, MatExpansionModule,
         MatDatepickerModule, MatFormFieldModule, MatIconModule,
         MatNativeDateModule, MatInputModule, MatRadioModule, MatCheckboxModule } from '@angular/material';
 import { TextMaskModule } from 'angular2-text-mask';
+import { RegisterStudentService } from './register-student.service';
+import { ContractComponent } from './contract/contract.component';
 
 @NgModule({
-    declarations: [RegisterStudentComponent],
+    declarations: [
+        RegisterStudentComponent,
+        ContractComponent
+    ],
     imports: [
         CommonModule,
         ReactiveFormsModule,
@@ -24,6 +29,9 @@ import { TextMaskModule } from 'angular2-text-mask';
         TextMaskModule,
         MatRadioModule,
         MatCheckboxModule
+    ],
+    providers: [
+        RegisterStudentService
     ]
 })
 

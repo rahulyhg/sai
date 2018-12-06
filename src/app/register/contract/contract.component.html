@@ -1,0 +1,95 @@
+<div  class="container" *ngIf="(student$ | async) as student">
+    <h3 class="text-center mt-5 mb-5"><b ><u>FICHA DE MATRÍCULA</u></b></h3>
+    
+    <p style="text-align : justify">
+    Nome do estudante:   <b class="mr-3">{{student.name}}</b> 
+    Endereço:               <b class="mr-3">{{student.address}}</b>    
+    N°:                     <b class="mr-3">{{student.number}}</b> 
+    Complemento:            <b class="mr-3">{{student.complement}} </b>
+    Bairro:                 <b class="mr-3">{{student.district}}</b> 
+    Cidade:                 <b class="mr-3">{{student.city}}</b>   
+    Estado:                 <b class="mr-3">{{student.state}}</b>   
+    CEP:                    <b class="mr-3">{{student.cep}}</b>    
+    Email:                  <b class="mr-3">{{student.email}}</b>   
+    Cel:                    <b class="mr-3">{{student.studentPhone}}</b>
+    RG:                     <b class="mr-3">{{student.rg}}</b>  
+    Orgão Expedidor:        <b class="mr-3">{{student.shipping}}</b>  
+    CPF:                    <b class="mr-3">{{student.cpf}}</b> 
+    Nascimento:             <b class="mr-3">{{student.birth}}</b>   
+    Menor de Idade:                     <b class="mr-3">{{student.underAge}}</b>   
+    Mão dominante:                      <b class="mr-3">{{student.hand}}</b>   
+    Responsável legal e financeiro:     <b class="mr-3">{{student.responsibleName}}</b>   
+    Parentesco:                         <b class="mr-3">{{student.responsibleParentage}}</b>  
+    RG:                                 <b class="mr-3">{{student.responsibleRg}}</b> 
+    CPF:                                <b class="mr-3">{{student.responsibleCpf}}</b>   
+    Celular:                            <b class="mr-3">{{student.responsiblePhone}}</b>  
+    Em caso de emergência avisar:       <b class="mr-3">{{student.emergencyName}}</b>  
+    Relação:                            <b class="mr-3">{{student.emergencyParentage}}</b>  
+    Celular:                            <b class="mr-3">{{student.emergencyPhone}}</b>  
+    Periodo das aulas:                  <b class="mr-3">{{student.classPeriod}}</b>  
+    Tipo de curso:                      <b class="mr-3">{{student.classCourse}}</b>    
+    Formado no Ensino Médio:            <b class="mr-3">{{student.formed}}</b>   
+    Ano de conclusão:                   <b class="mr-3">{{student.formedYear}}</b>   
+    Escola onde estudou/estuda:         <b class="mr-3">{{student.formedSchool}}</b>   
+    cidade:                             <b class="mr-3">{{student.formedSchoolCity}}</b>    
+
+    Já fez Pré-vestibular:              <b class="mr-3">{{student.preEntrance}}</b>   
+    nome do cursinho:                   <b class="mr-3">{{student.preEntranceName}}</b>   
+    Cursos que pretende prestar vestibular:  <b class="mr-3">{{student.pretensionCourses}}</b>     
+    Instituições Pretendidadas:         <b class="mr-3">{{student.pretensionUniversities}}</b>
+    Irá prestar o ENEM:                 <b class="mr-3">{{student.enem}}</b>  
+
+    Faz uso de medicamento Controlado:  <b class="mr-3">{{student.controlledMedication}}</b>    
+    se sim, qual(is):                   <b class="mr-3">{{student.controlledMedicationDescription}}</b> 
+    Portador de necessidades especiais: <b class="mr-3">{{student.specialNeed}}</b>  
+    se sim, qual(is):                   <b class="mr-3">{{student.specialNeedDescription}}</b>    
+    Tem alergias:                       <b class="mr-3">{{student.allergy}}</b>          
+    se sim, qual(is):                   <b class="mr-3">{{student.allergyDescription}}</b> 
+    Como ficou sabendo do curso:        <b class="mr-3">{{student.courseInformation}}</b>
+    </p>    <br><br><br>
+    
+
+    <h5 class="mt-3 mb-3"><b>CONDIÇÕES DE PAGAMENTO DA TAXA DE SUSTENTABILIDADE:</b></h5>
+
+    <p>Curso <b>{{student.classCourse}}</b> preparatório para ENEM e Vestibulares.</p>
+
+    <p *ngIf="student.paymentCash == '1'">Pagamento à vista - Parcela única ( {{student.paymentCashDiscount}} % de desconto) R$ {{paymentCashAmounth}} </p>
+
+    <p *ngIf="student.paymentInstallment == '1'">Pagamento parcelado mensal (todo 5° dia do mês) - (1 parcela matrícula + <b>{{student.paymentInstallmentParcels}}</b> de <b>R$ {{student.paymentInstallmentParcelsValue}}</b> )</p>
+
+    <p>OBS: Para pagamento até o vencimento, o contratante obterá 10% de desconto.</p>
+
+    <p class="mt-5 mb-5">Florianópolis {{dia}} de {{mes}} de {{ano}}.</p>
+
+    <div align="center" class="row">
+        <h5 class="col-md-6">______________________________<br/>
+            <b>CONTRATANTE</b>
+        </h5>
+
+        <h5 class="col-md-6">______________________________<br/>
+            <b>CONTRATADA</b>
+        </h5>
+    </div>
+
+    <p>Testemunhas</p>
+    <div align="center" class="row">
+        
+        <p class="col-md-6">Nome:______________________________<br/></p>
+
+        <p class="col-md-6">Nome______________________________<br/></p>
+    </div>
+
+    <div align="center" class="row">
+        <p class="col-md-6">CPF:______________________________<br/></p>
+
+        <p class="col-md-6">CPF:______________________________<br/></p>
+    </div>
+<br/>
+<br/>
+<br/>
+<br/>
+
+    
+    
+    
+</div>

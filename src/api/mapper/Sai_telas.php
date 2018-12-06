@@ -19,7 +19,7 @@
 ################################################################################
 /**
  * Classe generada para a tabela "sai_telas"
- * in 2018-12-05
+ * in 2018-12-06
  * @author Hugo Ferreira da Silva
  * @link http://www.hufersil.com.br/lumine
  * @package mapper

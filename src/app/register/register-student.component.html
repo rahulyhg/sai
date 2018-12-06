@@ -64,7 +64,7 @@
                 <!-- NASCIMENTO, CELULAR, MÃO DOMINANTE, MENOR DE IDADE -->
                 <div class="form-group">
                         <div class="row">
-                            <div class="col-md-3" >
+                            <div class="col-md-2" >
                                 <mat-form-field class="width-100">
                                     <input formControlName="birth"  matInput [matDatepicker]="picker" placeholder="Nascimento">
                                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -73,10 +73,14 @@
                             </div>
                             <div class="col-md-3" >
                                 <mat-form-field class="width-100">
+                                        <input formControlName="email" matInput placeholder="E-mail">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-2" >
+                                <mat-form-field class="width-100">
                                         <input formControlName="studentPhone" [textMask]="{mask: maskPhone}" matInput placeholder="Celular">
                                 </mat-form-field>
                             </div>
-                            <div class="col-md-1"></div>
                             <div class="col-md-3">
                                 <div class="label-radio-group">
                                     Mão Dominante
@@ -347,10 +351,10 @@
                             </div>
                             <mat-radio-group formControlName="classCourse">
                                 <mat-radio-button class="rb-ajust-form mr-5"                
-                                    value="matutino">Extensivo
+                                    value="extensivo">Extensivo
                                 </mat-radio-button>
                                 <mat-radio-button class="rb-ajust-form mr-5" 
-                                    value="vespertino">Semiextensivo
+                                    value="semiextensivo">Semiextensivo
                                 </mat-radio-button>
                             </mat-radio-group>
                         </div>

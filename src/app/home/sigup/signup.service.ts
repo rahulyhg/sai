@@ -6,7 +6,7 @@ import { NewUser } from './new-user';
 @Injectable()
 export class SignUpService {
 
-    API = environment.ApiUrl;
+    private API = environment.ApiUrl;
 
     constructor(private http: HttpClient) {}
 

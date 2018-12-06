@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as textMaskAddOn from 'text-mask-addons';
+import { Student } from './student';
+import { RegisterStudentService } from './register-student.service';
+import { ResponseApi } from '../core/response-api';
 
 @Component({
     templateUrl: './register-student.component.html'
@@ -37,6 +40,7 @@ export class RegisterStudentComponent implements OnInit {
 
     constructor(
         private formBuilder: FormBuilder,
+        private registerStudentService: RegisterStudentService,
         private router: Router) { }
 
     ngOnInit(): void {
@@ -58,6 +62,12 @@ export class RegisterStudentComponent implements OnInit {
                     Validators.required,
                     Validators.minLength(5),
                     Validators.maxLength(15)
+                ]
+            ],
+            email: ['',
+                [
+                    Validators.required,
+                    Validators.email
                 ]
             ],
             shipping: ['',
@@ -313,8 +323,22 @@ export class RegisterStudentComponent implements OnInit {
     }
 
     submit() {
-        console.log(this.registerStudentForm.getRawValue());
-        console.log('erro do preentrance', this.registerStudentForm.get('preEntrance').errors);
+
+        if (this.registerStudentForm.valid && !this.registerStudentForm.pending) {
+            const newStudent = this.registerStudentForm.getRawValue() as Student;
+            this.registerStudentService.register(newStudent)
+            .subscribe(
+                (res) => {
+                    const response = res.body as ResponseApi;
+                    if (!response.error) {
+                        this.router.navigate(['register/contract'],
+                        {queryParams: {studentEmail: newStudent.email}});
+                    }
+                },
+                err => console.log(err)
+            );
+        }
+
     }
 
 }
