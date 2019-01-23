@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { ResponseApi } from 'src/app/core/response-api';
+import { AlertService } from 'src/app/shared/services/alert/alert.service';
 
 
 @Component({
@@ -16,7 +17,8 @@ export class SignInComponent implements OnInit {
     constructor(
         private router: Router,
         private authService: AuthService,
-        private formBuilder: FormBuilder) { }
+        private formBuilder: FormBuilder,
+        private alertService: AlertService) { }
 
     ngOnInit(): void {
         this.signinForm = this.formBuilder.group({
@@ -39,13 +41,15 @@ export class SignInComponent implements OnInit {
                 (res) => {
                     const response = res.body as ResponseApi;
                     if (!response.error) {
+                        this.alertService.success('Bem-vindo novamente! :)', 5000);
                         this.router.navigate(['dashboard']);
+                    } else {
+                        this.alertService.error(response.error);
                     }
                 },
                 err => {
-                    console.log(err);
+                    this.alertService.error('Falha de comunicação com a API!');
                     this.signinForm.reset();
-                    // criar função para alertar erro
                 }
             );
     }

@@ -1,0 +1,38 @@
+<!-- <h1 mat-dialog-title>Hi {{data}}</h1>
+<div mat-dialog-content>
+  <p>What's your favorite animal?</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="data">Ok</button>
+</div> -->
+
+<div class="container text-center">
+    <div class="center">
+        <video #video width="300" height="400" autoplay></video>
+    </div>
+
+    <div class="center">
+            <canvas #canvas width="400" height="300"></canvas>
+    </div>
+
+    <div class="center">
+        <button #captureButton mat-icon-button color="warn" (click)="capture()">
+            <mat-icon>photo_camera</mat-icon>
+        </button>
+
+        <button #recaptureButton mat-raised-button class="mr-3" color="accent" (click)="recapture()">
+            Tirar outra
+        </button>
+
+        <button #saveButton mat-raised-button color="primary" (click)="save()" [mat-dialog-close]="data">
+            Salvar
+        </button>
+
+    </div>
+    
+
+</div>

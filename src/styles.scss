@@ -8,6 +8,7 @@
 
 $primary: mat-palette($mat-light-blue);
 $accent:  mat-palette($mat-amber, A200, A100, A400);
+$warn:    mat-palette($mat-red);
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
@@ -17,24 +18,44 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     margin-right: auto !important;
 }
 
+.right {
+    margin-left: auto !important;
+    margin-right: 0 !important;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+.full-width {
+    width: 100% !important;
+}
+
 .mat-card-header-text {
     margin-left: auto !important;
     margin-right: auto !important;
 }
 
 .bg-color-primary {
-    background-color: mat-color($primary, 500) !important;
+    background-color: mat-color($primary) !important;
     color: #fff !important;
 }
-
-.bg-color-secondary {
-    background-color: mat-color($primary, 300) !important;
-    color: #fff !important;
-}
-
 .bg-color-accent {
-    background-color: mat-color($accent, A400) !important;
+    background-color: mat-color($accent) !important;
+    color: #000 !important;
 }
+.bg-color-warn {
+    background-color: mat-color($warn) !important;
+}
+
+.text-color-accent {
+    color: mat-color($accent, A400) !important;
+}
+
+.text-color-primary {
+    color: mat-color($primary, 500) !important;
+}
+
 
 .no-padding {
     padding: 0% !important;
@@ -64,6 +85,7 @@ button:focus {
     outline: 0px auto -webkit-focus-ring-color;
 }
 
+// config scroll bars size and color
 ::-webkit-scrollbar {
     width: 2px;
 }
@@ -87,6 +109,7 @@ button:focus {
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
+// end scroll bar config
 
 .header-spacer {
     flex: 1 1 auto;
@@ -116,4 +139,41 @@ button:focus {
     color: #757575;
     margin-top: -5px;
     
+}
+
+// configura as listas para terem seu subitens ex: 1., 1.1, 1.2, 1.2.1 ... 
+ol {
+    list-style-type: none;
+    counter-reset: item;
+    margin: 0;
+    padding: 0;
+}
+
+ol > li {
+    display: table;
+    counter-increment: item;
+    margin-bottom: 0.6em;
+}
+
+ol > li:before {
+    content: counters(item, ".") ". ";
+    display: table-cell;
+    padding-right: 0.6em;    
+}
+
+li ol > li {
+    margin: 0;
+}
+
+li ol > li:before {
+    content: counters(item, ".") " ";
+}
+// end config lists
+
+.strong {
+    font-weight: bolder !important;
+}
+
+.light {
+    color: #757575 !important;
 }

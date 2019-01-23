@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Student } from './student';
+import { Student } from '../student/student';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { ResponseApi } from '../core/response-api';
 
@@ -27,7 +27,6 @@ export class RegisterStudentService {
         this.http.post(this.API + '/student/getStudent', {email}, {observe: 'response'})
             .subscribe(res => {
                 const response = res.body as ResponseApi;
-                console.log('response', response);
                 if (!response.error) {
                     const student = response.data as Student;
                     console.log('res.data as student', student);

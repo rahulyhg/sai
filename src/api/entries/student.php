@@ -6,19 +6,23 @@ global $app;
 
 		function () use ($app) {
 
-			$retorno    = array( "error" => "", "success" => "","email" => "");
+            /* Lumine_Log::setLevel( Lumine_Log::ERROR ); // nivel máximo
+        Lumine_Log::setOutput( Lumine_Log::BROWSER); // envia para um arquivo */
+
+			$retorno    = array( "error" => "", "data" => array());
 			$parametros = json_decode ($app->request()->getBody());
 
 			try{
 
 				$localizar = new Sai_usuarios();
-				$localizar->where("email = '{$parametros->email}' AND excluido = 'N'");
+				$localizar->where("email = '".$parametros->email."' AND excluido = 'N'");
 
 				if($localizar->find()){
-					$retorno["email"] = "Esse e-mail já está sendo utilizado, caso você seja o proprietário recupere a senha e realize o login normalmente.";
+					$retorno["error"] = "Esse e-mail já está sendo utilizado por outro estudante.";
 					echo json_encode($retorno);
 					return;
                 }
+                
 
                 // tratamento para formatar os dados de acordo com o banco
                 $cpf                    = str_replace(array('.', '-'), '', $parametros->cpf);
@@ -100,12 +104,28 @@ global $app;
 					echo json_encode($retorno);
 					return;
 				} else {
-					$retorno['success'] = true;
+
+                    $info           = mime_content_type($parametros->studentImage);
+                    $info           = explode("/", $info);
+                    $extensao       = $info[1];
+                    $nome_arquivo   = date("Y")."-".$novoUsuario->id."-".date("dmY-His");
+                    $arquivo = "store/students/".$nome_arquivo.".".$extensao;
+
+                    if( copy($parametros->student_image,"" . $arquivo) ) {
+
+                        $novoUsuario->student_image  = $arquivo;
+                        $novoUsuario->update();
+                        $retorno['data'] = true;
+                    } else {
+                        $retorno['data'] = "Atenção! Estudante registrado com sucesso, mas hove uma falha ao armazenar sua foto. Favor contatar o suporte.";
+                    }
 				}
 
 			}catch(Lumine_Exception $e){
 				$retorno["error"] = $e;
-			}
+			} catch(Exception $e){
+				$retorno["error"] = $e;
+			} 
 
 			echo json_encode($retorno);
 		}
@@ -121,13 +141,19 @@ global $app;
 
 			try{
 
-				$student = new Sai_usuarios();
-				$student->where("email = '{$parametros->email}' AND excluido = 'N'");
+                $student = new Sai_usuarios();
+                
+                if(isset($parametros->studentId))
+                    $student->where("id = '{$parametros->studentId}' AND excluido = 'N'");
+                else 
+                    $student->where("email = '{$parametros->email}' AND excluido = 'N'");
+				
 
 				if($student->find(true)){
                     $studentObj                                         = array();
                     $studentObj['name']                                 = utf8_encode($student->nome);			            
-                    $studentObj['email']                                = $student->email;			            		            
+                    $studentObj['email']                                = $student->email;
+                    $studentObj['registerDate']			            	= $student->hora_cadastro;	            
                     $studentObj['cpf']                                  = $student->cpf;			            
                     $studentObj['studentPhone']                         = $student->fone;
                     $studentObj['rg']                                   = $student->rg;
@@ -141,7 +167,8 @@ global $app;
                     $studentObj['complement']                           = utf8_encode($student->complement);                
                     $studentObj['city']                                 = utf8_encode($student->city);                      
                     $studentObj['state']                                = $student->state;                     
-                    $studentObj['cep']                                  = $student->cep;                       
+                    $studentObj['cep']                                  = $student->cep;
+                    $studentObj['image']                                = $student->student_image;                   
                     $studentObj['responsibleName']                      = utf8_encode($student->responsible_name);         
                     $studentObj['responsibleParentage']                 = utf8_encode($student->responsible_parentage);     
                     $studentObj['responsiblePhone']                     = $student->responsible_phone;         
@@ -187,5 +214,33 @@ global $app;
 
 			echo json_encode($retorno);
 		}
-	);
+    );
+    
+
+    $app->post('/student/removeStudent',
+
+	function () use ($app) {
+
+		$retorno    = array( "error" => "",	"data"	=>	array());
+		$parametros = json_decode ($app->request()->getBody());
+
+		try{
+
+            $student = new Sai_usuarios();
+            $student->get($parametros->studentId);
+
+            $student->excluido = 'S';
+
+            if (!$student->update())
+                $retorno['error'] = "Não foi possível excluír o estudante. [BD ERR]";
+
+		}catch(Lumine_Exception $e){
+			$retorno["error"] = "Não foi possível consultar as informações, falha na comunicação com o banco de dados".$e;
+		} catch(Exception $e){
+			$retorno["error"] = "Não foi possível consultar as informações, falha na comunicação com o banco de dados".$e;
+		}
+
+		echo json_encode($retorno);
+	}
+);
 ?>

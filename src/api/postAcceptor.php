@@ -7,7 +7,7 @@
     /*********************************************
     * Altere essa linha para definir a pasta de upload *
     *********************************************/
-    $imageFolder = "images/";
+    $imageFolder = "store/";
 
     reset ($_FILES);
     $temp = current($_FILES);

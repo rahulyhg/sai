@@ -42,7 +42,7 @@
 	}
 
 
-	if(ENVIRONMENT == "LOCALHOST"){
+	/* if(ENVIRONMENT == "LOCALHOST"){ */
 
 		if (isset($_SERVER['HTTP_ORIGIN'])) {
 			//header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
@@ -65,13 +65,13 @@
 		$app->options('/(:x+)', function() use ($app) {
 			$app->response->setStatus(200);
 		});
-	}else{
+	/* }else{
 
 		//BASIC AUTHENTICATION
 		if (!$PUBLICO){
 			$app->add(new \Slim\Extras\Middleware\HttpBasicAuth(BASIC_AUTHENTICATION_USER,BASIC_AUTHENTICATION_PASSWORD));
 		}
-	}
+	} */
 
 	includeArquivosDir("mapper/");
 	includeArquivosDir("entries/");

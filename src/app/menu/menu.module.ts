@@ -13,6 +13,7 @@ import {
 
 import { MenuComponent } from './menu.component';
 import { RouterModule } from '@angular/router';
+import { LoadingModule } from '../shared/components/loading/loading.module';
 
 @NgModule({
     declarations: [
@@ -28,7 +29,8 @@ import { RouterModule } from '@angular/router';
         MatIconModule,
         MatListModule,
         MatMenuModule,
-        RouterModule
+        RouterModule,
+        LoadingModule
     ],
     exports: [MenuComponent]
 })

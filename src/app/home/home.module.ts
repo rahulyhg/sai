@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { SignInComponent } from './signin/signin.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule, MatFormFieldModule, MatInputModule, MatCardModule } from '@angular/material';
+import { MatButtonModule, MatFormFieldModule, MatInputModule, MatCardModule, MatSnackBarModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SignUpComponent } from './sigup/signup.component';
 import { RouterModule } from '@angular/router';
 import { SignUpService } from './sigup/signup.service';
+import { AlertModule } from '../shared/services/alert/alert.module';
 
 
 
@@ -22,7 +23,8 @@ import { SignUpService } from './sigup/signup.service';
         FormsModule,
         ReactiveFormsModule,
         MatCardModule,
-        RouterModule
+        RouterModule,
+        AlertModule
     ],
     providers: [
         SignUpService

@@ -19,7 +19,7 @@
 ################################################################################
 /**
  * Classe generada para a tabela "sai_usuarios"
- * in 2018-12-06
+ * in 2019-01-18
  * @author Hugo Ferreira da Silva
  * @link http://www.hufersil.com.br/lumine
  * @package mapper
@@ -53,6 +53,7 @@ class Sai_usuarios extends Lumine_Base {
     public $city;
     public $state;
     public $cep;
+    public $student_image;
     public $responsible_name;
     public $responsible_parentage;
     public $responsible_phone;
@@ -122,6 +123,7 @@ class Sai_usuarios extends Lumine_Base {
         $this->_addField('city', 'city', 'varchar', 200, array('notnull' => true));
         $this->_addField('state', 'state', 'char', 2, array('notnull' => true));
         $this->_addField('cep', 'cep', 'varchar', 8, array('notnull' => true));
+        $this->_addField('student_image', 'student_image', 'varchar', 256, array());
         $this->_addField('responsible_name', 'responsible_name', 'varchar', 250, array('notnull' => true));
         $this->_addField('responsible_parentage', 'responsible_parentage', 'varchar', 100, array('notnull' => true));
         $this->_addField('responsible_phone', 'responsible_phone', 'varchar', 11, array('notnull' => true));

@@ -68,7 +68,7 @@
                                 <mat-form-field class="width-100">
                                     <input formControlName="birth"  matInput [matDatepicker]="picker" placeholder="Nascimento">
                                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                    <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+                                    <mat-datepicker #picker startView="year"></mat-datepicker>
                                 </mat-form-field>
                             </div>
                             <div class="col-md-3" >
@@ -746,7 +746,42 @@
 
                 <mat-action-row>
                     <button mat-button type="button" color="warn" (click)="prevStep(); false">Anterior</button>
-                    <button mat-button type="button" color="primary" (click)="nextStep(); false">End</button>
+                    <button mat-button type="button" color="primary" (click)="nextStep(); false">Finalizar</button>
+                </mat-action-row>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel [expanded]="step === 10" (opened)="setStep(10)" hideToggle>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Foto do estudante
+                    </mat-panel-title>
+                    <mat-panel-description>
+                    </mat-panel-description>
+                    <mat-icon style="color: lightgrey" *ngIf="  
+                            registerStudentForm.get('studentImage').errors"
+                    >photo_camera</mat-icon>
+
+                    <mat-icon style="color: #03a9f4" *ngIf="  
+                            !registerStudentForm.get('studentImage').errors
+                            "
+                    >photo_camera</mat-icon>
+                </mat-expansion-panel-header>
+
+               
+              
+
+                <!-- Captura imagem estudante -->
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="center" mat-raised-button color="accent" (click)="openRegisterImage()">Registrar foto</button>
+                        </div>
+                    </div>
+                </div>
+
+                <mat-action-row>
+                    <button mat-button type="button" color="warn" (click)="prevStep(); false">Anterior</button>
+                    <button mat-button type="button" color="primary" (click)="nextStep(); false">Finalizar</button>
                 </mat-action-row>
             </mat-expansion-panel>
 
@@ -757,7 +792,7 @@
                     color="accent"
                     class="mt-5"
                     type="submit"
-                    [disabled]="registerStudentForm.invalid">
+                    [disabled]="registerStudentForm.invalid || buttomDisabled">
                         Finalizar
             </button>
         </div>

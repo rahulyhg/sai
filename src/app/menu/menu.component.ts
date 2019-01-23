@@ -14,9 +14,8 @@ export class MenuComponent implements OnDestroy, OnInit {
 
     mobileQuery: MediaQueryList;
 
-    fillerNav = Array.from({length: 50}, (_, i) => `Nav Item ${i + 1}`);
-
     user$: Observable<User>;
+
 
     private _mobileQueryListener: () => void;
 

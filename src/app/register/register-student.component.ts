@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as textMaskAddOn from 'text-mask-addons';
-import { Student } from './student';
+import { Student } from '../student/student';
 import { RegisterStudentService } from './register-student.service';
 import { ResponseApi } from '../core/response-api';
+import { AlertService } from '../shared/services/alert/alert.service';
+import { MatDialog } from '@angular/material';
+import { RegisterImageComponent } from './register-image/register-image.component';
 
 @Component({
     templateUrl: './register-student.component.html'
@@ -15,6 +18,8 @@ export class RegisterStudentComponent implements OnInit {
     registerStudentForm: FormGroup;
     step = 0;
     placeholder = 'u';
+    buttomDisabled: boolean;
+    studentImage;
 
     // mascaras
 
@@ -41,7 +46,9 @@ export class RegisterStudentComponent implements OnInit {
     constructor(
         private formBuilder: FormBuilder,
         private registerStudentService: RegisterStudentService,
-        private router: Router) { }
+        private router: Router,
+        private alertService: AlertService,
+        private dialog: MatDialog) { }
 
     ngOnInit(): void {
         this.registerStudentForm = this.formBuilder.group({
@@ -143,33 +150,25 @@ export class RegisterStudentComponent implements OnInit {
             ],
             responsibleName: ['',
                 [
-                    Validators.required,
                     Validators.minLength(5),
                     Validators.maxLength(80)
                 ]
             ],
             responsibleParentage: ['',
                 [
-                    Validators.required,
                     Validators.minLength(3),
                     Validators.maxLength(80)
                 ]
             ],
-            responsiblePhone: ['',
-                [
-                    Validators.required
-                ]
-            ],
+            responsiblePhone: [''],
             responsibleCpf: ['',
                 [
-                    Validators.required,
                     /* Validators.minLength(11),
                     Validators.maxLength(11) */
                 ]
             ],
             responsibleRg: ['',
                 [
-                    Validators.required,
                     Validators.minLength(5),
                     Validators.maxLength(80)
                 ]
@@ -253,7 +252,7 @@ export class RegisterStudentComponent implements OnInit {
             ],
             pretensionUniversities: ['',
                 [
-                    Validators.minLength(5),
+                    Validators.minLength(4),
                     Validators.maxLength(50)
                 ]
             ],
@@ -300,6 +299,11 @@ export class RegisterStudentComponent implements OnInit {
                     Validators.required
                 ]
             ],
+            studentImage: ['',
+                [
+                    Validators.required
+                ]
+            ],
             paymentCash: [''],
             paymentCashDiscount: [''],
             paymentCashAmounth: [''],
@@ -307,6 +311,19 @@ export class RegisterStudentComponent implements OnInit {
             paymentInstallmentParcels: [''],
             paymentInstallmentParcelsValue: ['']
         });
+        this.buttomDisabled = false;
+    }
+
+    openRegisterImage() {
+        const dialogRef = this.dialog.open(RegisterImageComponent, {
+            width: 'auto',
+            data: this.studentImage
+        });
+
+        dialogRef.afterClosed()
+            .subscribe( result => {
+                this.registerStudentForm.get('studentImage').setValue(result);
+            });
     }
 
 
@@ -325,20 +342,31 @@ export class RegisterStudentComponent implements OnInit {
     submit() {
 
         if (this.registerStudentForm.valid && !this.registerStudentForm.pending) {
+
+            this.buttomDisabled = true;
             const newStudent = this.registerStudentForm.getRawValue() as Student;
+
             this.registerStudentService.register(newStudent)
             .subscribe(
-                (res) => {
+                res => {
                     const response = res.body as ResponseApi;
+                    this.buttomDisabled = false;
+
                     if (!response.error) {
                         this.router.navigate(['register/contract'],
-                        {queryParams: {studentEmail: newStudent.email}});
+                        {queryParams: {studentId: newStudent.email}});
+                    } else {
+                        this.alertService.error(response.error);
                     }
                 },
-                err => console.log(err)
+                err => {
+                    this.alertService.error('Falha de comunicação com a API');
+                    this.buttomDisabled = false;
+                }
             );
         }
 
     }
+
 
 }

@@ -1,4 +1,6 @@
 export interface Student {
+    id: number;
+    registerDate: Date;
     name: string;
     cpf: string;
     rg: number;
@@ -15,6 +17,7 @@ export interface Student {
     city: string;
     state: string;
     cep: string;
+    image: string;
     responsibleName: string;
     responsibleParentage: string;
     responsiblePhone: string;
@@ -48,4 +51,5 @@ export interface Student {
     paymentInstallment: boolean;
     paymentInstallmentParcels: number;
     paymentInstallmentParcelsValue: string;
+    studentImage: string;
 }

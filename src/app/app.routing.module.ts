@@ -7,6 +7,8 @@ import { AuthGuard } from './core/auth/auth.guard';
 import { SignInGuard } from './core/auth/signin.guard';
 import { RegisterStudentComponent } from './register/register-student.component';
 import { ContractComponent } from './register/contract/contract.component';
+import { StudentReportComponent } from './report/student-reports/student-reports.component';
+import { StudentComponent } from './student/student.component';
 
 
 const routes: Routes = [
@@ -39,7 +41,18 @@ const routes: Routes = [
         path: 'register/contract',
         component: ContractComponent,
         canActivate: [AuthGuard]
-    }
+    },
+    {
+        path: 'report/students',
+        component: StudentReportComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'student/:s',
+        component: StudentComponent,
+        canActivate: [AuthGuard]
+    },
+
 ];
 
 export const appRouting = RouterModule.forRoot(routes);

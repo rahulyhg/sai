@@ -12,6 +12,8 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { RegisterModule } from './register/register.module';
 import { DateAdapter } from '@angular/material';
 import { CustomDateAdapter } from './shared/CustomDateAdapter';
+import { ReportModule } from './report/report.module';
+import { StudentModule } from './student/student.module';
 
 
 
@@ -28,7 +30,9 @@ import { CustomDateAdapter } from './shared/CustomDateAdapter';
     MenuModule,
     CoreModule,
     DashboardModule,
-    RegisterModule
+    RegisterModule,
+    ReportModule,
+    StudentModule
   ],
   providers: [
     {provide: DateAdapter, useClass: CustomDateAdapter}
