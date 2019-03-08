@@ -1,0 +1,91 @@
+<div class="container">
+    <div class="mat-display-1 mt-3">Cadastro de Materiais</div>
+    <mat-card class="mt-5">
+        <form [formGroup]="manageMaterialForm" (submit)="submit()">
+
+            <div class="row">
+                <div class="col-md-6" style="border-right: 1px dashed rgb(193, 191, 191);">
+
+                    <div class="col-md-12 mt-5">
+                        <mat-form-field class="width-100">
+                            <input 
+                                matInput 
+                                placeholder="Título"
+                                formControlName="title">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-12 mt-3">
+                        <mat-form-field class="width-100">
+                            <mat-select 
+                                placeholder="Disciplina"
+                                formControlName="discipline">
+                                <mat-option 
+                                    *ngFor="let discipline of disciplines"
+                                    [value]="discipline.id">
+                                    {{discipline.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-12 text-center">
+                        <div class="col-md-5 center">
+                            <input-file
+                                formControlName="material"
+                                fileAccept="application/pdf"
+                                iconFile="picture_as_pdf"
+                                iconAdd="note_add">
+                            </input-file>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-6">
+                    <div class="row mt-5 ml-2">
+                        <div class="col-md-6">
+                            <h5>Não visível</h5>
+                        
+                            <div
+                                cdkDropList
+                                #optionsList="cdkDropList"
+                                [cdkDropListData]="classesOptions"
+                                [cdkDropListConnectedTo]="[selectedList]"
+                                class="example-list"
+                                (cdkDropListDropped)="drop($event)">
+                                <div class="example-box" *ngFor="let class of classesOptions" cdkDrag>{{class.name}} - {{class.period}}</div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <h5>Visível</h5>
+                        
+                            <div
+                                cdkDropList
+                                #selectedList="cdkDropList"
+                                [cdkDropListData]="selectedClasses"
+                                [cdkDropListConnectedTo]="[optionsList]"
+                                class="example-list"
+                                (cdkDropListDropped)="drop($event)">
+                                <div class="example-box" *ngFor="let class of selectedClasses" cdkDrag>{{class.name}} - {{class.period}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-5 text-center">
+                <button 
+                    mat-fab
+                    class="center mt-5"
+                    [disabled]="!manageMaterialForm.valid">
+                    <mat-icon aria-label="Save">save</mat-icon>
+                </button>
+            </div>
+
+        </form>
+
+    </mat-card>
+
+</div>

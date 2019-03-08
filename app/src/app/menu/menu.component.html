@@ -1,0 +1,69 @@
+<div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
+  <mat-toolbar color="primary" class="example-toolbar not-print">
+    <button *ngIf="(user$ | async) as user" mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
+    <h1 class="example-app-name">
+      <a style="color: #ffffff" routerLink="dashboard">
+          SAI
+      </a>
+    </h1>
+
+    <span class="header-spacer"></span>
+
+    <div class="text-right" *ngIf="(user$ | async) as user">
+      
+      <button mat-button [matMenuTriggerFor]="menu">
+        <i class="fa fa-user-circle mr-2"></i>
+        <a class="mr-1">{{ user.name }}</a>
+      </button>
+      <mat-menu class="text-center" #menu="matMenu">
+        <button mat-menu-item (click)="logout()"> <i class="fa fa-door-closed"></i>Sair</button>
+      </mat-menu>
+      
+    </div>
+
+  </mat-toolbar>
+
+
+  <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+    <mat-sidenav class="not-print" #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+
+      <mat-nav-list>
+        <div *ngIf="(user$ | async) as user">
+            <a mat-list-item 
+              (click)="snav.toggle()" 
+              [routerLink]="[screen.link]" 
+              *ngFor="let screen of user.screens">
+                <mat-icon class="mr-2">{{screen.icon}}</mat-icon>
+                {{screen.description}}
+            </a>
+        </div>
+
+        <div class="mt-3" style="border-bottom: dotted 1px; border-color: #707070;"></div>
+
+        <a mat-list-item class="text-color-primary"
+          href="https://prouniversidade.com.br/aulasonline/app/"
+          target="_blank">
+            <mat-icon class="mr-2">videocam</mat-icon>
+            Aulasonline
+        </a>
+
+        <a mat-list-item class="text-color-primary"
+          href="https://redacaonline.com.br/"
+          target="_blank">
+            <mat-icon class="mr-2">create</mat-icon>
+            Redação Online
+        </a>
+        
+      </mat-nav-list>
+
+      
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <div class="fixed-top">
+            <app-loading></app-loading>
+        </div>
+      <ng-content></ng-content>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

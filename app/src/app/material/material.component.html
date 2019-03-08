@@ -1,0 +1,28 @@
+<mat-tab-group color="accent" backgroundColor="primary" dynamicHeight >
+    <mat-tab *ngFor="let discipline of disciplines" [label]="discipline.name">
+        <div class="m-5">
+            <div class="mat-display-1 mt-3">{{discipline.name}}</div>
+            <div class="row m-5">
+                <ng-container *ngFor="let material of materials; let i = index">
+                    <div class="col-md-2" *ngIf="material.discipline == discipline.id">
+                        <mat-card  class="example-card" tabindex="0">
+                            <div href="" (click)="openMaterial(material.path)">
+                                <div class="text-center mb-3">
+                                    <span>{{i}} {{material.title}}</span>
+                                </div>
+                                <img mat-card-image src="https://i.gadgets360cdn.com/large/pdf_pixabay_1493877090501.jpg" alt="Photo of a Shiba Inu">
+                            </div>
+                            <mat-card-actions class="text-right">
+                                <button 
+                                    (click)="delete(material.id, i)" 
+                                    *ngIf="isMonitor()" mat-icon-button color="warn">
+                                        <mat-icon aria-label="Delete">delete</mat-icon>
+                                </button>
+                            </mat-card-actions>
+                        </mat-card>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </mat-tab>
+</mat-tab-group>

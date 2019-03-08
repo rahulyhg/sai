@@ -1,0 +1,15 @@
+<div class="container">
+    <div *ngIf="isStudent()">
+        <div class="mat-display-1 mt-5">Bem-vindo, Estudante!</div>
+        <mat-card class="lb-accent mb-5">
+            <div class="mat-body-strong mat-body-2">
+                Nosso sistema está em construção, mas você já pode utilizar algumas funções listadas abaixo ou no menu lateral.
+            </div>
+        </mat-card>
+        <div class="text-center mt-5 pt-5">
+            <button mat-raised-button color="accent" [routerLink]="['/material/material']">
+                <mat-icon class="mr-1">class</mat-icon> Materiais
+            </button>
+        </div>
+    </div>
+</div>

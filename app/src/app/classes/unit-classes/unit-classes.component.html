@@ -1,0 +1,38 @@
+<div class="container">
+
+    <div class="mat-display-1 mt-3">Turmas</div>
+
+    <mat-card>
+        <form>
+            <mat-form-field>
+                <mat-select (selectionChange)="getClassStudents($event.value)">
+                    <mat-option *ngFor="let class of unitClasses" [value]="class.id">
+                        {{class.name}} - {{class.period}}
+                    </mat-option>   
+                </mat-select>
+            </mat-form-field>
+
+            <div class="row text-center mt-5">
+
+                <div (click)="openStudent(student.id)" 
+                    *ngFor="let student of classStudents"
+                    class="col-md-2 col-sm-4 col-xs-6 mb-3">
+    
+                    <mat-card class="no-padding" tabindex="0">
+                        <mat-card-header></mat-card-header>
+                        <img mat-card-image class="student-card-thumb pt-3"
+                            src="{{API}}/{{student.studentImage}}" 
+                            alt="{{student.name}}">
+                        <mat-card-content class="pt-2 pb-2">
+                            <small><div class="text-color-primary">{{student.name}}</div></small>
+                            <div class="text-color-accent">{{student.registerNumber}}</div>
+                        </mat-card-content>
+                    </mat-card>  
+                </div>
+    
+            </div>
+        </form>
+
+    </mat-card>
+
+</div>

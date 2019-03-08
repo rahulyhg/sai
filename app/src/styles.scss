@@ -1,0 +1,198 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* @import "@angular/material/prebuilt-themes/indigo-pink.css"; */
+/* @import '@angular/material/prebuilt-themes/deeppurple-amber.css'; */
+@import "~bootstrap/dist/css/bootstrap.css";
+@import '~@angular/material/theming';
+@include mat-core();
+
+$primary: mat-palette($mat-light-blue);
+$accent:  mat-palette($mat-amber, A200, A100, A400);
+$warn:    mat-palette($mat-red);
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.center {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.lb-primary {
+    border-left: solid;
+    border-color: mat-color($primary);
+}
+
+.lb-accent {
+    border-left: solid;
+    border-color: mat-color($accent);
+}
+
+.lb-warn {
+    border-left: solid;
+    border-color: mat-color($warn);
+}
+
+.right {
+    margin-left: auto !important;
+    margin-right: 0 !important;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+.full-width {
+    width: 100% !important;
+}
+
+.mat-card-header-text {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.bg-color-primary {
+    background-color: mat-color($primary) !important;
+    color: #fff !important;
+}
+.bg-color-accent {
+    background-color: mat-color($accent) !important;
+    color: #000 !important;
+}
+.bg-color-warn {
+    background-color: mat-color($warn) !important;
+}
+
+.text-color-accent {
+    color: mat-color($accent, A400) !important;
+}
+
+.text-color-primary {
+    color: mat-color($primary, 500) !important;
+}
+
+
+.no-padding {
+    padding: 0% !important;
+}
+
+.text-big {
+    font-size:4vw !important;
+    font-weight: 100 !important;
+}
+
+.width-90 {
+    width: 90%;
+    max-width: 550px;
+}
+
+.width-100 {
+    width: 100%;
+}
+
+.mat-drawer-content {
+    overflow-x: hidden !important;
+}
+
+button:focus {
+    // desabilita contorno do botão quando clicado
+    outline: 0px dotted;
+    outline: 0px auto -webkit-focus-ring-color;
+}
+
+// config scroll bars size and color
+::-webkit-scrollbar {
+    width: 2px;
+}
+
+::-webkit-scrollbar :hover{
+    width: 2px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: mat-color($primary, 300);
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+// end scroll bar config
+
+.header-spacer {
+    flex: 1 1 auto;
+}
+
+.rb-ajust-form  {
+    display: inline-flex;
+    flex-direction: column;
+}
+  
+.rb-ajust-form {
+    margin: 2px 0;
+}
+
+.cb-ajust-form  {
+    display: inline-flex;
+    flex-direction: column;
+}
+  
+.cb-ajust-form {
+    margin: 13px 0;
+}
+
+.label-radio-group {
+    font-size: 10px;
+    margin: 0;
+    color: #757575;
+    margin-top: -5px;
+    
+}
+
+// configura as listas para terem seu subitens ex: 1., 1.1, 1.2, 1.2.1 ... 
+ol {
+    list-style-type: none;
+    counter-reset: item;
+    margin: 0;
+    padding: 0;
+}
+
+ol > li {
+    display: table;
+    counter-increment: item;
+    margin-bottom: 0.6em;
+}
+
+ol > li:before {
+    content: counters(item, ".") ". ";
+    display: table-cell;
+    padding-right: 0.6em;    
+}
+
+li ol > li {
+    margin: 0;
+}
+
+li ol > li:before {
+    content: counters(item, ".") " ";
+}
+// end config lists
+
+.strong {
+    font-weight: bolder !important;
+}
+
+.light {
+    color: #757575 !important;
+}
+
+.student-card-thumb {
+    max-width: 90%;
+}
