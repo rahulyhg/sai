@@ -8,7 +8,7 @@
 	// SETA O AMBIENTE DE DESENVOLVIMENTO // 
 	//************************************//	
 		$environment = "DEVELOPMENT";     //
-		//$environment = "PRODUCTION";    // 
+		//$environment = "PRODUCTION";    //   
 		//$environment = "HOMOLOGATION";  //
 	//************************************//
 	//									  //
