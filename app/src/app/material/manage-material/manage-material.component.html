@@ -32,6 +32,7 @@
                     <div class="col-md-12 text-center">
                         <div class="col-md-5 center">
                             <input-file
+                                class="hvr-grow-rotate"
                                 formControlName="material"
                                 fileAccept="application/pdf"
                                 iconFile="picture_as_pdf"
@@ -78,7 +79,7 @@
             <div class="row mt-5 text-center">
                 <button 
                     mat-fab
-                    class="center mt-5"
+                    class="center mt-5 hvr-grow"
                     [disabled]="!manageMaterialForm.valid">
                     <mat-icon aria-label="Save">save</mat-icon>
                 </button>

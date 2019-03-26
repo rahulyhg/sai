@@ -9,5 +9,6 @@ export interface User {
     profileId: number;
     unit: number;
     class: number;
+    image: string;
     screens: Screen[];
 }

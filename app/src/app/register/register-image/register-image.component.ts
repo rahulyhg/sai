@@ -12,6 +12,7 @@ export class RegisterImageComponent implements AfterViewInit, OnDestroy {
     @ViewChild('captureButton', {read: ElementRef}) public captureButton: ElementRef;
     @ViewChild('recaptureButton', {read: ElementRef}) public recaptureButton: ElementRef;
     @ViewChild('saveButton', {read: ElementRef}) public saveButton: ElementRef;
+    @ViewChild('borderVideo') public borderVideo: ElementRef;
     private stream: MediaStream;
 
 
@@ -40,10 +41,12 @@ export class RegisterImageComponent implements AfterViewInit, OnDestroy {
     public capture() {
         this.video.nativeElement.style.display = 'none';
         this.captureButton.nativeElement.style.display = 'none';
+        this.borderVideo.nativeElement.style.display = 'none';
         this.canvas.nativeElement.style.display = '';
         this.saveButton.nativeElement.style.display = '';
         this.recaptureButton.nativeElement.style.display = '';
-        this.canvas.nativeElement.getContext('2d').drawImage(this.video.nativeElement, 0, 0, 400, 300);
+        this.canvas.nativeElement.getContext('2d')
+            .drawImage(this.video.nativeElement, 150, 0, 354, 472, 0, 0, 354, 472);
         this.data = this.canvas.nativeElement.toDataURL('image/png');
     }
 
@@ -53,6 +56,7 @@ export class RegisterImageComponent implements AfterViewInit, OnDestroy {
         this.canvas.nativeElement.style.display = 'none';
         this.captureButton.nativeElement.style.display = '';
         this.video.nativeElement.style.display = '';
+        this.borderVideo.nativeElement.style.display = '';
     }
 
     public save() {

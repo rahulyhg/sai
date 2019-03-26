@@ -1,0 +1,71 @@
+<div class="container">
+    <div class="mt-5 center">
+        <div class="mat-display-1 mt-5">IBOPE - Pró Floripa</div>
+        <mat-card-header>
+            <mat-card-title>Cadastrar IBOPE</mat-card-title>
+        </mat-card-header>
+        <mat-card class="text-center">
+            <form [formGroup]="manageIbopeForm">
+                <div class="row">
+                    <div class="col-md-5">
+                        <mat-form-field  class="width-90">
+                            <mat-label>Mês de referência</mat-label>
+                            <mat-select formControlName="ibopeMonth">
+                                <mat-option value="1">Janeiro</mat-option>
+                                <mat-option value="2">Fevereiro</mat-option>
+                                <mat-option value="3">Março</mat-option>
+                                <mat-option value="4">Abril</mat-option>
+                                <mat-option value="5">Maio</mat-option>
+                                <mat-option value="6">Junho</mat-option>
+                                <mat-option value="7">Julho</mat-option>
+                                <mat-option value="8">Agosto</mat-option>
+                                <mat-option value="9">Setembro</mat-option>
+                                <mat-option value="10">Outubro</mat-option>
+                                <mat-option value="11">Novembro</mat-option>
+                                <mat-option value="12">Dezembro</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-5">
+                        <mat-form-field  class="width-90">
+                            <mat-label>Tipo</mat-label>
+                            <mat-select formControlName="ibopeLvl">
+                                <mat-option value="1">Apenas Professores</mat-option>
+                                <mat-option value="2">Professores e Coordenação</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-2 pt-3">
+                            <button 
+                                [disabled]="!manageIbopeForm.valid"
+                                (click)="save()"
+                                mat-raised-button color="accent">Cadastrar</button>
+                    </div>
+                </div>
+            </form>
+        </mat-card>
+    </div>
+    <div *ngIf="ibopes" class="mt-5">
+
+        <div class="mat-h1 mt-5 pt-3">Últimos IBOPES</div>
+
+        <mat-card class="col-md-8 mt-5 center">
+           <div class="row" *ngFor="let ibope of ibopes; first as first; last as last">
+               <div class="col-6 mt-2 mb-2">
+                    {{ibope.ibopeMonth | monthPT}}
+                </div>
+                <div class="col-6 mt-2 mb-2">
+                    <mat-slide-toggle 
+                        [disabled]="!first"
+                        labelPosition="before"
+                        color="primary"
+                        [checked]="ibope.active"
+                        (change)="lastIbopeToggle($event, ibope.id)">
+                    </mat-slide-toggle>
+                </div>
+                <mat-divider></mat-divider>
+           </div>
+           
+        </mat-card>
+    </div>
+</div>

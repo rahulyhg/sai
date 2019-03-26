@@ -4,6 +4,7 @@
 /* @import '@angular/material/prebuilt-themes/deeppurple-amber.css'; */
 @import "~bootstrap/dist/css/bootstrap.css";
 @import '~@angular/material/theming';
+@import '~hover.css/css/hover.css';
 @include mat-core();
 
 $primary: mat-palette($mat-light-blue);
@@ -11,7 +12,7 @@ $accent:  mat-palette($mat-amber, A200, A100, A400);
 $warn:    mat-palette($mat-red);
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family:  "Helvetica Neue", Roboto, sans-serif; }
 
 .center {
     margin-left: auto !important;
@@ -31,6 +32,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .lb-warn {
     border-left: solid;
     border-color: mat-color($warn);
+}
+
+.rb-divider {
+    border-right: 1px dashed rgb(193, 191, 191);
+}
+
+.lb-divider {
+    border-left: 1px dashed rgb(193, 191, 191);
 }
 
 .right {
@@ -196,3 +205,23 @@ li ol > li:before {
 .student-card-thumb {
     max-width: 90%;
 }
+
+// VIDEO IMAGE CAPTURA 
+
+.video {
+    width: 354px;
+    height: 472px;
+    object-fit: cover;
+}
+
+.border-video {
+    position: absolute;
+    z-index: 9999;
+    transform: translateX(-0%) translateY(-100%);
+    width: 354px;
+    height: 472px;
+    overflow: hidden;
+    border: dotted ;
+    border-color: mat-color($accent);
+}
+

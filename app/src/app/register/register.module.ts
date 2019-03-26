@@ -4,7 +4,8 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatCardModule, MatButtonModule, MatExpansionModule,
         MatDatepickerModule, MatFormFieldModule, MatIconModule,
-        MatNativeDateModule, MatInputModule, MatRadioModule, MatCheckboxModule, MatDialogModule, MatSelectModule } from '@angular/material';
+        MatNativeDateModule, MatInputModule, MatRadioModule, MatCheckboxModule,
+         MatDialogModule, MatSelectModule, MatTabsModule } from '@angular/material';
 import { TextMaskModule } from 'angular2-text-mask';
 import { RegisterStudentService } from './register-student.service';
 import { ContractComponent } from './contract/contract.component';
@@ -37,6 +38,7 @@ import { AlertModule } from '../shared/services/alert/alert.module';
         MatCheckboxModule,
         MatDialogModule,
         MatSelectModule,
+        MatTabsModule,
         ReactiveFormsModule,
         FormsModule,
         TextMaskModule,
@@ -44,6 +46,10 @@ import { AlertModule } from '../shared/services/alert/alert.module';
     ],
     providers: [
         RegisterStudentService
+    ],
+    exports: [
+        RegisterImageComponent,
+        MonthPTPipe
     ]
 })
 

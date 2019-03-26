@@ -10,8 +10,7 @@ export class DashboardComponent implements OnInit {
 
     constructor(
         private userService: UserService,
-        private alertService: AlertService,
-        ) {}
+        private alertService: AlertService) {}
 
     ngOnInit(): void {
 

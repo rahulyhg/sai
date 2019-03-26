@@ -1,22 +1,13 @@
-<!-- <h1 mat-dialog-title>Hi {{data}}</h1>
-<div mat-dialog-content>
-  <p>What's your favorite animal?</p>
-  <mat-form-field>
-    <input matInput [(ngModel)]="data">
-  </mat-form-field>
-</div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button [mat-dialog-close]="data">Ok</button>
-</div> -->
-
 <div class="container text-center">
+    
     <div class="center">
-        <video #video width="300" height="400" autoplay></video>
+        <video class="video" #video width="354" height="472" autoplay></video>
+
+        <div #borderVideo class="border-video"></div>
     </div>
 
     <div class="center">
-            <canvas #canvas width="400" height="300"></canvas>
+            <canvas #canvas width="354" height="472"></canvas>
     </div>
 
     <div class="center">

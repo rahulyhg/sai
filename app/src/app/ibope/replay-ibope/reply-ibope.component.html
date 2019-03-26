@@ -1,0 +1,619 @@
+<mat-tab-group color="accent" backgroundColor="primary" dynamicHeight >
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <div matBadge="1" 
+                [matBadgeHidden]="!verifyAvalilableIbopeCoordination()" 
+                matBadgeOverlap="false" 
+                matBadgeColor="warn">
+                Coordenação
+            </div>
+        </ng-template>
+        <div class="container pb-5">
+            <div class="mat-display-1 mt-5">IBOPE - Pró Floripa</div>
+            <div *ngIf="ibopeConfig" class="mat-h3 mt-3">
+                <mat-icon>event</mat-icon>
+                Referente ao mês de {{ibopeConfig?.ibopeMonth | monthPT}}
+            </div>
+            <form *ngIf="verifyAvalilableIbopeCoordination(); else ibopeDisabled" 
+                [formGroup]="coordinationForm" (submit)="submit()" class="form mt-4 ">
+
+                <mat-accordion class="example-headers-align">
+                    <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>Secretaria</mat-panel-title>
+                            <mat-panel-description></mat-panel-description>
+                            <mat-icon color="accent" *ngIf="  
+                                    (coordinationForm.get('pedagogicRating').errors || 
+                                    coordinationForm.get('attendantRating').errors  ||
+                                    coordinationForm.get('secretaryRating').errors  ||
+                                    coordinationForm.get('pedagogicMsg').errors)">
+                                    error
+                            </mat-icon>
+                            <mat-icon color="primary" *ngIf="  
+                                    (!coordinationForm.get('pedagogicRating').errors && 
+                                    !coordinationForm.get('attendantRating').errors  &&
+                                    !coordinationForm.get('secretaryRating').errors  &&
+                                    !coordinationForm.get('pedagogicMsg').errors)">
+                                    check_circle
+                            </mat-icon>
+                        </mat-expansion-panel-header>
+                    
+                        
+                        <div class="form-group">
+                            <mat-label><b>1 - Na sua opinião, o cordenador pedagógico é:</b></mat-label><br>
+                            <mat-radio-group formControlName="pedagogicRating">
+                                <mat-radio-button class="rb" value="1">Excelente</mat-radio-button>
+                                <mat-radio-button class="rb" value="2">Bom</mat-radio-button>
+                                <mat-radio-button class="rb" value="3">Regular</mat-radio-button>
+                                <mat-radio-button class="rb" value="4">Ruim</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+
+                        <div class="form-group">
+                            <mat-label><b>2 - Na sua opinião, o atendente é:</b></mat-label><br>
+                            <mat-radio-group formControlName="attendantRating">
+                                <mat-radio-button class="rb" value="1">Excelente</mat-radio-button>
+                                <mat-radio-button class="rb" value="2">Bom</mat-radio-button>
+                                <mat-radio-button class="rb" value="3">Regular</mat-radio-button>
+                                <mat-radio-button class="rb" value="4">Ruim</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+
+                        <div class="form-group">
+                            <mat-label><b>3 - Na sua opinião, o atendimento da Secretaria é:</b></mat-label><br>
+                            <mat-radio-group formControlName="secretaryRating">
+                                <mat-radio-button class="rb" value="1">Excelente</mat-radio-button>
+                                <mat-radio-button class="rb" value="2">Bom</mat-radio-button>
+                                <mat-radio-button class="rb" value="3">Regular</mat-radio-button>
+                                <mat-radio-button class="rb" value="4">Ruim</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+
+                        <div class="form-group">
+                            <mat-form-field class="width-70">
+                                <mat-label>
+                                    <b>Escreva sugestões sobre o Coordenador, atendente e secretaria ou críticas, se existirem.</b>
+                                </mat-label>
+                                <textarea formControlName="pedagogicMsg" matInput></textarea>
+                            </mat-form-field>
+                        </div>
+                    
+                        <mat-action-row>
+                            <button mat-button color="primary" (click)="nextStep(); false">Próximo</button>
+                        </mat-action-row>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>Psicóloga, material didático, monitorias e maratonas</mat-panel-title>
+                            <mat-panel-description></mat-panel-description>
+                            <mat-icon color="accent" *ngIf="  
+                                    (coordinationForm.get('psychoRating').errors || 
+                                    coordinationForm.get('coursewareRating').errors  ||
+                                    coordinationForm.get('marathonsRating').errors  ||
+                                    coordinationForm.get('monitoringRating').errors)">
+                                    error
+                            </mat-icon>
+                            <mat-icon color="primary" *ngIf="  
+                                    (!coordinationForm.get('psychoRating').errors && 
+                                    !coordinationForm.get('coursewareRating').errors  &&
+                                    !coordinationForm.get('marathonsRating').errors  &&
+                                    !coordinationForm.get('monitoringRating').errors)">
+                                    check_circle
+                            </mat-icon>
+                        </mat-expansion-panel-header>
+                    
+                        
+                        <div class="form-group">
+                            <mat-label><b>4 - Na sua opinião, as palestras da psicóloga são:</b></mat-label><br>
+                            <mat-radio-group formControlName="psychoRating">
+                                <mat-radio-button class="rb" value="1">Excelente</mat-radio-button>
+                                <mat-radio-button class="rb" value="2">Bom</mat-radio-button>
+                                <mat-radio-button class="rb" value="3">Regular</mat-radio-button>
+                                <mat-radio-button class="rb" value="4">Ruim</mat-radio-button>
+                                <mat-radio-button class="rb" value="5">Não participei</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+
+                        <div class="form-group">
+                            <mat-form-field class="width-70">
+                                <mat-label>
+                                    <b>Escreva sugestões sobre as palestras da psicóloga ou críticas, se existirem.</b>
+                                </mat-label>
+                                <textarea formControlName="psychoMsg" matInput></textarea>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="form-group mt-3">
+                            <mat-label><b>5 - Como você avalia o material didático fornecido pelo Pró Floripa:</b></mat-label><br>
+                            <mat-radio-group formControlName="coursewareRating">
+                                <mat-radio-button class="rb" value="1">Excelente</mat-radio-button>
+                                <mat-radio-button class="rb" value="2">Bom</mat-radio-button>
+                                <mat-radio-button class="rb" value="3">Regular</mat-radio-button>
+                                <mat-radio-button class="rb" value="4">Ruim</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+
+                        <div class="form-group">
+                            <mat-form-field class="width-70">
+                                <mat-label>
+                                    <b>Escreva sugestões sobre o Coordenador, atendente e secretaria ou críticas, se existirem.</b>
+                                </mat-label>
+                                <textarea formControlName="coursewareMsg" matInput></textarea>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="form-group mt-3">
+                            <mat-label><b>6 - Como você avalia as monitorias?</b></mat-label><br>
+                            <mat-radio-group formControlName="monitoringRating">
+                                <mat-radio-button class="rb" value="1">Excelente</mat-radio-button>
+                                <mat-radio-button class="rb" value="2">Bom</mat-radio-button>
+                                <mat-radio-button class="rb" value="3">Regular</mat-radio-button>
+                                <mat-radio-button class="rb" value="4">Ruim</mat-radio-button>
+                                <mat-radio-button class="rb" value="5">Não participei</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+
+                        <div class="form-group">
+                            <mat-form-field class="width-70">
+                                <mat-label>
+                                    <b>Escreva sugestões sobre as monitorias ou críticas, se existirem.</b>
+                                </mat-label>
+                                <textarea formControlName="monitoringMsg" matInput></textarea>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="form-group mt-3">
+                            <mat-label><b>7 - Como você avalia as maratonas?</b></mat-label><br>
+                            <mat-radio-group formControlName="marathonsRating">
+                                <mat-radio-button class="rb" value="1">Excelente</mat-radio-button>
+                                <mat-radio-button class="rb" value="2">Bom</mat-radio-button>
+                                <mat-radio-button class="rb" value="3">Regular</mat-radio-button>
+                                <mat-radio-button class="rb" value="4">Ruim</mat-radio-button>
+                                <mat-radio-button class="rb" value="5">Não participei</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+
+                        <div class="form-group">
+                            <mat-form-field class="width-70">
+                                <mat-label>
+                                    <b>Escreva sugestões sobre as maratonas ou críticas, se existirem.</b>
+                                </mat-label>
+                                <textarea formControlName="marathonsMsg" matInput></textarea>
+                            </mat-form-field>
+                        </div>
+                    
+                        <mat-action-row>
+                            <button mat-button color="warn" (click)="prevStep(); false">Anterior</button>
+                            <button mat-button color="primary" (click)="nextStep(); false">Próximo</button>
+                        </mat-action-row>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>Estrutura</mat-panel-title>
+                            <mat-panel-description></mat-panel-description>
+                            <mat-icon color="accent" *ngIf="  
+                                    (coordinationForm.get('airConditionerRating').errors || 
+                                    coordinationForm.get('chairsRating').errors  ||
+                                    coordinationForm.get('cleaningRating').errors  ||
+                                    coordinationForm.get('boardRating').errors ||
+                                    coordinationForm.get('bathroomsRating').errors || 
+                                    coordinationForm.get('roomVisualRating').errors  ||
+                                    coordinationForm.get('hallRating').errors)">
+                                    error
+                            </mat-icon>
+                            <mat-icon color="primary" *ngIf="  
+                                    (!coordinationForm.get('airConditionerRating').errors && 
+                                    !coordinationForm.get('chairsRating').errors  &&
+                                    !coordinationForm.get('cleaningRating').errors  &&
+                                    !coordinationForm.get('boardRating').errors &&
+                                    !coordinationForm.get('bathroomsRating').errors && 
+                                    !coordinationForm.get('roomVisualRating').errors  &&
+                                    !coordinationForm.get('hallRating').errors)">
+                                    check_circle
+                            </mat-icon>
+                        </mat-expansion-panel-header>
+                    
+                        
+                        <div class="form-group">
+                            <mat-label><b>8 - Como você avalia o conforto da sala de aula, relativo a Ar Condicionado?</b></mat-label><br>
+                            <mat-radio-group formControlName="airConditionerRating">
+                                <mat-radio-button class="rb" value="1">Excelente</mat-radio-button>
+                                <mat-radio-button class="rb" value="2">Bom</mat-radio-button>
+                                <mat-radio-button class="rb" value="3">Regular</mat-radio-button>
+                                <mat-radio-button class="rb" value="4">Ruim</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+
+                        <div class="form-group">
+                            <mat-label><b>9 - Como você avalia o conforto da sala de aula, relativo a Cadeiras?</b></mat-label><br>
+                            <mat-radio-group formControlName="chairsRating">
+                                <mat-radio-button class="rb" value="1">Excelente</mat-radio-button>
+                                <mat-radio-button class="rb" value="2">Bom</mat-radio-button>
+                                <mat-radio-button class="rb" value="3">Regular</mat-radio-button>
+                                <mat-radio-button class="rb" value="4">Ruim</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+
+                        <div class="form-group">
+                            <mat-label><b>10 - Como você avalia o conforto da sala de aula, relativo a Quadro?</b></mat-label><br>
+                            <mat-radio-group formControlName="boardRating">
+                                <mat-radio-button class="rb" value="1">Excelente</mat-radio-button>
+                                <mat-radio-button class="rb" value="2">Bom</mat-radio-button>
+                                <mat-radio-button class="rb" value="3">Regular</mat-radio-button>
+                                <mat-radio-button class="rb" value="4">Ruim</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+
+                        <div class="form-group">
+                            <mat-label><b>11 - Como você avalia o conforto da sala de aula, relativo a Limpeza?</b></mat-label><br>
+                            <mat-radio-group formControlName="cleaningRating">
+                                <mat-radio-button class="rb" value="1">Excelente</mat-radio-button>
+                                <mat-radio-button class="rb" value="2">Bom</mat-radio-button>
+                                <mat-radio-button class="rb" value="3">Regular</mat-radio-button>
+                                <mat-radio-button class="rb" value="4">Ruim</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+
+                        <div class="form-group">
+                            <mat-label><b>12 - Como você avalia o conforto da sala de aula, relativo a Banheiros?</b></mat-label><br>
+                            <mat-radio-group formControlName="bathroomsRating">
+                                <mat-radio-button class="rb" value="1">Excelente</mat-radio-button>
+                                <mat-radio-button class="rb" value="2">Bom</mat-radio-button>
+                                <mat-radio-button class="rb" value="3">Regular</mat-radio-button>
+                                <mat-radio-button class="rb" value="4">Ruim</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+
+                        <div class="form-group">
+                            <mat-label><b>13 - Como você avalia o conforto da sala de aula, relativo Visual da sala?</b></mat-label><br>
+                            <mat-radio-group formControlName="roomVisualRating">
+                                <mat-radio-button class="rb" value="1">Excelente</mat-radio-button>
+                                <mat-radio-button class="rb" value="2">Bom</mat-radio-button>
+                                <mat-radio-button class="rb" value="3">Regular</mat-radio-button>
+                                <mat-radio-button class="rb" value="4">Ruim</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+
+                        <div class="form-group">
+                            <mat-label><b>14 - Como você avalia o conforto da sala de aula, relativo a Corredor?</b></mat-label><br>
+                            <mat-radio-group formControlName="hallRating">
+                                <mat-radio-button class="rb" value="1">Excelente</mat-radio-button>
+                                <mat-radio-button class="rb" value="2">Bom</mat-radio-button>
+                                <mat-radio-button class="rb" value="3">Regular</mat-radio-button>
+                                <mat-radio-button class="rb" value="4">Ruim</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+
+                        <div class="form-group">
+                            <mat-form-field class="width-70">
+                                <mat-label>
+                                    <b>Escreva sugestões sobre a estrutura em geral ou críticas, se existirem.</b>
+                                </mat-label>
+                                <textarea formControlName="classRoomMsg" matInput></textarea>
+                            </mat-form-field>
+                        </div>
+
+                        <mat-action-row>
+                            <button mat-button color="warn" (click)="prevStep(); false">Anterior</button>
+                            <button mat-button color="primary" (click)="nextStep(); false">Próximo</button>
+                        </mat-action-row>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>Pró Online</mat-panel-title>
+                            <mat-panel-description></mat-panel-description>
+                            <mat-icon color="accent" *ngIf="  
+                                    (coordinationForm.get('poLessonRating').errors || 
+                                    coordinationForm.get('poPlatformRating').errors  ||
+                                    coordinationForm.get('poStudyPlanRating').errors  ||
+                                    coordinationForm.get('poExercisesRating').errors ||
+                                    coordinationForm.get('poSimulatesRating').errors)">
+                                    error
+                            </mat-icon>
+                            <mat-icon color="primary" *ngIf="  
+                                    (!coordinationForm.get('poLessonRating').errors && 
+                                    !coordinationForm.get('poPlatformRating').errors  &&
+                                    !coordinationForm.get('poStudyPlanRating').errors  &&
+                                    !coordinationForm.get('poExercisesRating').errors &&
+                                    !coordinationForm.get('poSimulatesRating').errors)">
+                                    check_circle
+                            </mat-icon>
+                        </mat-expansion-panel-header>
+                    
+                        <div class="form-group">
+                            <mat-label><b>15 - Como você avalia o Pró Online, relativo a Aulas?</b></mat-label><br>
+                            <mat-radio-group formControlName="poLessonRating">
+                                <mat-radio-button class="rb" value="1">Excelente</mat-radio-button>
+                                <mat-radio-button class="rb" value="2">Bom</mat-radio-button>
+                                <mat-radio-button class="rb" value="3">Regular</mat-radio-button>
+                                <mat-radio-button class="rb" value="4">Ruim</mat-radio-button>
+                                <mat-radio-button class="rb" value="5">Não Utilizei</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+
+                        <div class="form-group">
+                            <mat-label><b>16 - Como você avalia o Pró Online, relativo a Plataforma?</b></mat-label><br>
+                            <mat-radio-group formControlName="poPlatformRating">
+                                <mat-radio-button class="rb" value="1">Excelente</mat-radio-button>
+                                <mat-radio-button class="rb" value="2">Bom</mat-radio-button>
+                                <mat-radio-button class="rb" value="3">Regular</mat-radio-button>
+                                <mat-radio-button class="rb" value="4">Ruim</mat-radio-button>
+                                <mat-radio-button class="rb" value="5">Não Utilizei</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+
+                        <div class="form-group">
+                            <mat-label><b>17 - Como você avalia o Pró Online, relativo a Plano de Estudos?</b></mat-label><br>
+                            <mat-radio-group formControlName="poStudyPlanRating">
+                                <mat-radio-button class="rb" value="1">Excelente</mat-radio-button>
+                                <mat-radio-button class="rb" value="2">Bom</mat-radio-button>
+                                <mat-radio-button class="rb" value="3">Regular</mat-radio-button>
+                                <mat-radio-button class="rb" value="4">Ruim</mat-radio-button>
+                                <mat-radio-button class="rb" value="5">Não Utilizei</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+
+                        <div class="form-group">
+                            <mat-label><b>18 - Como você avalia o Pró Online, relativo a Exercícios abaixo dos vídeos?</b></mat-label><br>
+                            <mat-radio-group formControlName="poExercisesRating">
+                                <mat-radio-button class="rb" value="1">Excelente</mat-radio-button>
+                                <mat-radio-button class="rb" value="2">Bom</mat-radio-button>
+                                <mat-radio-button class="rb" value="3">Regular</mat-radio-button>
+                                <mat-radio-button class="rb" value="4">Ruim</mat-radio-button>
+                                <mat-radio-button class="rb" value="5">Não Utilizei</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+
+                        <div class="form-group">
+                            <mat-label><b>19 - Como você avalia o Pró Online, relativo a Simulados?</b></mat-label><br>
+                            <mat-radio-group formControlName="poSimulatesRating">
+                                <mat-radio-button class="rb" value="1">Excelente</mat-radio-button>
+                                <mat-radio-button class="rb" value="2">Bom</mat-radio-button>
+                                <mat-radio-button class="rb" value="3">Regular</mat-radio-button>
+                                <mat-radio-button class="rb" value="4">Ruim</mat-radio-button>
+                                <mat-radio-button class="rb" value="5">Não Utilizei</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+
+
+                        <div class="form-group">
+                            <mat-form-field class="width-70">
+                                <mat-label>
+                                    <b>Escreva sugestões sobre o Pró Online ou críticas, se existirem.</b>
+                                </mat-label>
+                                <textarea formControlName="poMsg" matInput></textarea>
+                            </mat-form-field>
+                        </div>
+
+                        <mat-action-row>
+                            <button mat-button color="warn" (click)="prevStep(); false">Anterior</button>
+                            <button mat-button color="primary" (click)="nextStep(); false">Próximo</button>
+                        </mat-action-row>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel [expanded]="step === 5" (opened)="setStep(5)" hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>Redação Online</mat-panel-title>
+                            <mat-panel-description></mat-panel-description>
+                            <mat-icon color="accent" *ngIf="  
+                                    (coordinationForm.get('roPlatformRating').errors || 
+                                    coordinationForm.get('roCorrectionRating').errors  ||
+                                    coordinationForm.get('roTimeCorrectionRating').errors  ||
+                                    coordinationForm.get('roCorrectionComentsRating').errors)">
+                                    error
+                            </mat-icon>
+                            <mat-icon color="primary" *ngIf="  
+                                    (!coordinationForm.get('roPlatformRating').errors && 
+                                    !coordinationForm.get('roCorrectionRating').errors  &&
+                                    !coordinationForm.get('roTimeCorrectionRating').errors  &&
+                                    !coordinationForm.get('roCorrectionComentsRating').errors)">
+                                    check_circle
+                            </mat-icon>
+                        </mat-expansion-panel-header>
+                    
+                        <div class="form-group">
+                            <mat-label><b>20 - Como você avalia o Redação Online, relativo a Plataforma?</b></mat-label><br>
+                            <mat-radio-group formControlName="roPlatformRating">
+                                <mat-radio-button class="rb" value="1">Excelente</mat-radio-button>
+                                <mat-radio-button class="rb" value="2">Bom</mat-radio-button>
+                                <mat-radio-button class="rb" value="3">Regular</mat-radio-button>
+                                <mat-radio-button class="rb" value="4">Ruim</mat-radio-button>
+                                <mat-radio-button class="rb" value="5">Não Utilizei</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+
+                        <div class="form-group">
+                            <mat-label><b>21 - Como você avalia o Redação Online, relativo a Correção de Redação?</b></mat-label><br>
+                            <mat-radio-group formControlName="roCorrectionRating">
+                                <mat-radio-button class="rb" value="1">Excelente</mat-radio-button>
+                                <mat-radio-button class="rb" value="2">Bom</mat-radio-button>
+                                <mat-radio-button class="rb" value="3">Regular</mat-radio-button>
+                                <mat-radio-button class="rb" value="4">Ruim</mat-radio-button>
+                                <mat-radio-button class="rb" value="5">Não Utilizei</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+
+                        <div class="form-group">
+                            <mat-label><b>22 - Como você avalia o Redação Online, relativo a Tempo para correção?</b></mat-label><br>
+                            <mat-radio-group formControlName="roTimeCorrectionRating">
+                                <mat-radio-button class="rb" value="1">Excelente</mat-radio-button>
+                                <mat-radio-button class="rb" value="2">Bom</mat-radio-button>
+                                <mat-radio-button class="rb" value="3">Regular</mat-radio-button>
+                                <mat-radio-button class="rb" value="4">Ruim</mat-radio-button>
+                                <mat-radio-button class="rb" value="5">Não Utilizei</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+
+                        <div class="form-group">
+                            <mat-label><b>23 - Como você avalia o Redação Online, relativo a Indicações de erros e comentários feitos pelo corretor?</b></mat-label><br>
+                            <mat-radio-group formControlName="roCorrectionComentsRating">
+                                <mat-radio-button class="rb" value="1">Excelente</mat-radio-button>
+                                <mat-radio-button class="rb" value="2">Bom</mat-radio-button>
+                                <mat-radio-button class="rb" value="3">Regular</mat-radio-button>
+                                <mat-radio-button class="rb" value="4">Ruim</mat-radio-button>
+                                <mat-radio-button class="rb" value="5">Não Utilizei</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+
+
+                        <div class="form-group">
+                            <mat-form-field class="width-70">
+                                <mat-label>
+                                    <b>Escreva sugestões sobre o Redação Online ou críticas, se existirem.</b>
+                                </mat-label>
+                                <textarea formControlName="roMsg" matInput></textarea>
+                            </mat-form-field>
+                        </div>
+
+                        <mat-action-row>
+                            <button mat-button color="warn" (click)="prevStep(); false">Anterior</button>
+                            <button mat-button color="primary" (click)="nextStep(); false">Próximo</button>
+                        </mat-action-row>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel [expanded]="step === 6" (opened)="setStep(6)" hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>SAI</mat-panel-title>
+                            <mat-panel-description></mat-panel-description>
+                            <mat-icon color="accent" *ngIf="  
+                                    (coordinationForm.get('saiRating').errors)">
+                                    error
+                            </mat-icon>
+                            <mat-icon color="primary" *ngIf="  
+                                    (!coordinationForm.get('saiRating').errors)">
+                                    check_circle
+                            </mat-icon>
+                        </mat-expansion-panel-header>
+                    
+                        
+
+                        <div class="form-group">
+                            <mat-label><b>24 - Como você avalia o SAI, relativo a Plataforma?</b></mat-label><br>
+                            <mat-radio-group formControlName="saiRating">
+                                <mat-radio-button class="rb" value="1">Excelente</mat-radio-button>
+                                <mat-radio-button class="rb" value="2">Bom</mat-radio-button>
+                                <mat-radio-button class="rb" value="3">Regular</mat-radio-button>
+                                <mat-radio-button class="rb" value="4">Ruim</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+
+                        <div class="form-group">
+                            <mat-form-field class="width-70">
+                                <mat-label>
+                                    <b>Escreva sugestões sobre o SAI ou críticas, se existirem.</b>
+                                </mat-label>
+                                <textarea formControlName="saiMsg" matInput></textarea>
+                            </mat-form-field>
+                        </div>
+
+                        <mat-action-row>
+                            <button mat-button color="warn" (click)="prevStep(); false">Anterior</button>
+                            <button mat-button color="primary" (click)="nextStep(); false">Próximo</button>
+                        </mat-action-row>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel [expanded]="step === 7" (opened)="setStep(7)" hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>Recados e redes sociais</mat-panel-title>
+                            <mat-panel-description></mat-panel-description>
+                            <mat-icon color="accent" *ngIf="  
+                                    (coordinationForm.get('socialNetworksRating').errors || 
+                                    coordinationForm.get('classroomScrapsRating').errors)">
+                                    error
+                            </mat-icon>
+                            <mat-icon color="primary" *ngIf="  
+                                    (!coordinationForm.get('socialNetworksRating').errors && 
+                                    !coordinationForm.get('classroomScrapsRating').errors)">
+                                    check_circle
+                            </mat-icon>
+                        </mat-expansion-panel-header>
+                    
+                        
+
+                        <div class="form-group">
+                            <mat-label><b>25 - Como você avalia a comunicação do Pró Floripa, relativo a Redes sociais?</b></mat-label><br>
+                            <mat-radio-group formControlName="socialNetworksRating">
+                                <mat-radio-button class="rb" value="1">Excelente</mat-radio-button>
+                                <mat-radio-button class="rb" value="2">Bom</mat-radio-button>
+                                <mat-radio-button class="rb" value="3">Regular</mat-radio-button>
+                                <mat-radio-button class="rb" value="4">Ruim</mat-radio-button>
+                                <mat-radio-button class="rb" value="5">Não Utilizo</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+
+                        <div class="form-group">
+                            <mat-label><b>26 - Como você avalia a comunicação do Pró Floripa, relativo a Recados em sala (maratonas, monitorias, recados gerais)?</b></mat-label><br>
+                            <mat-radio-group formControlName="classroomScrapsRating">
+                                <mat-radio-button class="rb" value="1">Excelente</mat-radio-button>
+                                <mat-radio-button class="rb" value="2">Bom</mat-radio-button>
+                                <mat-radio-button class="rb" value="3">Regular</mat-radio-button>
+                                <mat-radio-button class="rb" value="4">Ruim</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+
+                        <div class="form-group">
+                            <mat-form-field class="width-70">
+                                <mat-label>
+                                    <b>Escreva sugestões ao Pró Floripa em geral ou críticas, se existirem.</b>
+                                </mat-label>
+                                <textarea formControlName="generalComentMsg" matInput></textarea>
+                            </mat-form-field>
+                        </div>
+
+                        <mat-action-row>
+
+                            <button mat-button color="primary" (click)="nextStep(); false">Finalizar</button>
+                        </mat-action-row>
+                    </mat-expansion-panel>
+
+                </mat-accordion>
+
+                <div class="form-group text-center">
+                    <button mat-raised-button mat-button 
+                            color="accent"
+                            class="mt-5"
+                            type="submit"
+                            [disabled]="coordinationForm.invalid || buttomDisabled">
+                                Finalizar
+                    </button>
+                </div>
+
+            </form>
+
+            <ng-template #ibopeDisabled>
+                <mat-card class="lb-accent mt-5 mb-5">
+                    <div class="mat-title">Não há ibope da cordenação disponível para você no momento.</div>
+                </mat-card>
+            </ng-template>
+        </div>
+    </mat-tab>
+
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <div matBadge="1" 
+                [matBadgeHidden]="!ibopeConfig?.id" 
+                matBadgeOverlap="false" 
+                matBadgeColor="warn">
+                Professores
+            </div>
+        </ng-template>
+        <div class="container pb-5">
+            <div class="mat-display-1 mt-5">IBOPE - Professores</div>
+            <div *ngIf="ibopeConfig" class="mat-h3 mt-3">
+                <mat-icon>event</mat-icon>
+                Referente ao mês de {{ibopeConfig?.ibopeMonth | monthPT}}
+            </div>
+            <form *ngIf="ibopeConfig?.id; else noIbope">
+                <app-teacher-ibope></app-teacher-ibope>
+            </form>
+            <ng-template #noIbope>
+                <mat-card class="lb-accent mt-5 mb-5">
+                    <div class="mat-title">Não há ibope de Professores disponível para você no momento.</div>
+                </mat-card>
+            </ng-template>
+        </div>
+    </mat-tab>
+</mat-tab-group>

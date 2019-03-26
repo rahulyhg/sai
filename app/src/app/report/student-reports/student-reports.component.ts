@@ -83,16 +83,19 @@ export class StudentReportComponent implements OnInit {
     }
 
     public removeStudent(studentId: number) {
-        this.studentService.removeStudent(studentId)
-            .subscribe( res => {
-                const response = res.body as ResponseApi;
+        if (confirm('Deseja realmente excluir o estudante?')) {
 
-                if (!response.error) {
-                    this.getStudents();
-                } else {
-                    this.alertService.error(response.error);
-                }
-            });
+            this.studentService.removeStudent(studentId)
+                .subscribe( res => {
+                    const response = res.body as ResponseApi;
+
+                    if (!response.error) {
+                        this.getStudents();
+                    } else {
+                        this.alertService.error(response.error);
+                    }
+                });
+        }
     }
 
     private getUnitClasses(unitId: number) {

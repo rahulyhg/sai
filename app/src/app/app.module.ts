@@ -17,6 +17,8 @@ import { StudentModule } from './student/student.module';
 import { ClassesModule } from './classes/classes.module';
 import { PresenceModule } from './presence/presence.module';
 import { MaterialModule } from './material/material.module';
+import { IbopeModule } from './ibope/ibope.module';
+import { TeacherModule } from './teacher/teacher.module';
 
 
 
@@ -38,7 +40,9 @@ import { MaterialModule } from './material/material.module';
     StudentModule,
     ClassesModule,
     PresenceModule,
-    MaterialModule
+    MaterialModule,
+    IbopeModule,
+    TeacherModule
   ],
   providers: [
     {provide: DateAdapter, useClass: CustomDateAdapter}

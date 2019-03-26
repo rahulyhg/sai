@@ -25,4 +25,8 @@ export class RegisterStudentService {
     getStudentDataById(studentId: number) {
         return this.http.post(this.API + '/student/getStudent', {studentId}, {observe: 'response'});
     }
+
+    basicRegister(basicStudent: Student) {
+        return this.http.post(this.API + '/student/basicRegister', basicStudent, {observe: 'response'});
+    }
 }
