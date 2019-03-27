@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { User } from './user';
 import {Md5} from 'ts-md5/dist/md5';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -16,6 +17,7 @@ export class UserService {
     private userUnit: number;
     private userId: number;
     private userProfileId: number;
+    private userClass: number;
 
     constructor(private router: Router) {
         // tslint:disable-next-line:no-unused-expression
@@ -34,6 +36,7 @@ export class UserService {
         this.userUnit = user.unit;
         this.userId = user.id;
         this.userProfileId = user.profileId;
+        this.userClass = user.class;
         this.userSubject.next(user);
     }
 
@@ -77,6 +80,10 @@ export class UserService {
 
     getProfileId(): number {
         return this.userProfileId;
+    }
+
+    getUserClass(): number {
+        return this.userClass;
     }
 
     isAdm(): boolean {

@@ -5,12 +5,18 @@
             <div class="row">
 
                 <div class="col-md-5 mt-5 mr-3">
-                    <img style="width: 100%" src="{{API}}/{{student.image}}">
+                    <img *ngIf="student.image; else noImage" style="width: 100%" src="{{API}}/{{student.image}}">
+                    <ng-template #noImage>
+                        <img style="width: 100%"
+                            src="{{API}}/store/students/circle-user.png" 
+                            alt="{{student.name}}">
+                    </ng-template>
 
                     <div class="row mt-5 mb-5">
                         <div class="col-6 strong">
                             <mat-chip-list>
-                                <button mat-flat-button color="accent">Matriculado</button>
+                                <button mat-flat-button color="accent"
+                                        (click)="openRegisterImage()">Alterar imagem</button>
                             </mat-chip-list>
                         </div>
                         <div  class="col-6 text-right light">

@@ -20,9 +20,16 @@
     
                     <mat-card class="no-padding" tabindex="0">
                         <mat-card-header></mat-card-header>
-                        <img mat-card-image class="student-card-thumb pt-3"
+                        <img *ngIf="student.studentImage; else batman" 
+                            mat-card-image class="student-card-thumb pt-3"
                             src="{{API}}/{{student.studentImage}}" 
                             alt="{{student.name}}">
+                        <ng-template #batman>
+                            <img  
+                                mat-card-image class="student-card-thumb"
+                                src="{{API}}/store/students/circle-user.png" 
+                                alt="{{student.name}}">
+                        </ng-template>
                         <mat-card-content class="pt-2 pb-2">
                             <small><div class="text-color-primary">{{student.name}}</div></small>
                             <div class="text-color-accent">{{student.registerNumber}}</div>

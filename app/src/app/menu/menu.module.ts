@@ -8,7 +8,8 @@ import {
     MatToolbarModule,
     MatIconModule,
     MatListModule,
-    MatMenuModule
+    MatMenuModule,
+    MatDividerModule
 } from '@angular/material';
 
 import { MenuComponent } from './menu.component';
@@ -30,7 +31,8 @@ import { LoadingModule } from '../shared/components/loading/loading.module';
         MatListModule,
         MatMenuModule,
         RouterModule,
-        LoadingModule
+        LoadingModule,
+        MatDividerModule
     ],
     exports: [MenuComponent]
 })

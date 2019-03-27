@@ -1,0 +1,32 @@
+<h1 mat-dialog-title>{{data.teacherName}} - {{data.discipline}}</h1>
+<div mat-dialog-content class="mb-5">
+    <div class="form-group pt-5 pb-5">
+        <mat-label>
+            <b>
+                1 - Na sua opinião, o(a) professor(a) {{data.teacherName}} - {{data.discipline}}:
+            </b>
+        </mat-label><br>
+        <mat-radio-group [(ngModel)]="data.rating">
+            <mat-radio-button class="rb" value="1">Excelente</mat-radio-button>
+            <mat-radio-button class="rb" value="2">Bom</mat-radio-button>
+            <mat-radio-button class="rb" value="3">Regular</mat-radio-button>
+            <mat-radio-button class="rb" value="4">Ruim</mat-radio-button>
+        </mat-radio-group>
+    </div>
+    <div class="form-group">
+        <mat-form-field class="width-100">
+            <mat-label>
+                <b>Escreva sugestões ao professor ou críticas, se existirem.</b>
+            </mat-label>
+            <textarea [(ngModel)]="data.msg" matInput></textarea>
+        </mat-form-field>
+    </div>
+</div>
+<div mat-dialog-actions class="text-center">
+    <button mat-button (click)="onNoClick()">Cancelar</button>
+    <button 
+        [disabled]="!(data.msg && data.rating)"
+        mat-raised-button
+        [mat-dialog-close]="data"
+        color="accent">Salvar</button>
+</div>

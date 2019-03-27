@@ -57,7 +57,7 @@
 		define("DATA_BASE_HOST"    	, 	"xxxdnn3407.locaweb.com.br");
 		define("DATA_BASE_NAME"    	, 	"sai");
 		define("ENVIRONMENT"       	, 	"PRODUCTION");
-		define("DATA_BASE_PASSWORD"	, 	"solucao2401");
+		define("DATA_BASE_PASSWORD"	, 	"");
 		define("PATH_SYSTEM"		,   "C:/wamp/www/sai/api/");
 		define("PATH_SYSTEM_HTTP"	,	"https://prouniversidade.com.br/sai/v2/api");
 		define("PATH_SYSTEM_URL"	, 	"https://prouniversidade.com.br/sai/v2/");

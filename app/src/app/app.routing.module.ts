@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SignInComponent } from './home/signin/signin.component';
-import { SignUpComponent } from './home/sigup/signup.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuard } from './core/auth/auth.guard';
 import { SignInGuard } from './core/auth/signin.guard';
@@ -14,6 +13,10 @@ import { RegisterPresenceComponent } from './presence/register-presence/register
 import { ManageMaterialComponent } from './material/manage-material/manage-material.component';
 import { MaterialComponent } from './material/material.component';
 import { AdmGuard } from './core/auth/adm.guard';
+import { RegisterTeacherComponent } from './teacher/register-teacher/register-teacher.component';
+import { LinkDisciplineComponent } from './teacher/link-discipline/link-discipline.component';
+import { ReplyIbopeComponent } from './ibope/replay-ibope/reply-ibope.component';
+import { ManageIbopeComponent } from './ibope/manage-ibope/manage-ibope.component';
 
 
 const routes: Routes = [
@@ -68,9 +71,29 @@ const routes: Routes = [
         canActivate: [AuthGuard, AdmGuard]
     },
     {
+        path: 'teacher/register-teacher',
+        component: RegisterTeacherComponent,
+        canActivate: [AuthGuard, AdmGuard]
+    },
+    {
+        path: 'teacher/link-discipline',
+        component: LinkDisciplineComponent,
+        canActivate: [AuthGuard, AdmGuard]
+    },
+    {
         path: 'material/material',
         component: MaterialComponent,
         canActivate: [AuthGuard]
+    },
+    {
+        path: 'ibope/reply-ibope',
+        component: ReplyIbopeComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'ibope/manage-ibope',
+        component: ManageIbopeComponent,
+        canActivate: [AuthGuard, AdmGuard]
     },
 
 ];

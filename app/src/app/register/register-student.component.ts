@@ -19,9 +19,11 @@ import { UserService } from '../user/user.service';
 export class RegisterStudentComponent implements OnInit {
 
     registerStudentForm: FormGroup;
+    basicRegisterForm: FormGroup;
     step = 0;
     placeholder = 'u';
     buttomDisabled: boolean;
+    basicButtomDisabled: boolean;
     studentImage;
     unitClasses: Class[];
 
@@ -314,6 +316,17 @@ export class RegisterStudentComponent implements OnInit {
             paymentInstallmentParcels: [''],
             paymentInstallmentParcelsValue: ['']
         });
+        this.basicRegisterForm = this.formBuilder.group({
+            name: ['', Validators.required],
+            email: ['',
+                [
+                    Validators.required,
+                    Validators.email
+                ]
+            ],
+            class: ['', Validators.required],
+            unit: [this.userService.getUserUnit()]
+        });
         this.buttomDisabled = false;
     }
 
@@ -375,6 +388,7 @@ export class RegisterStudentComponent implements OnInit {
                         {queryParams: {email: newStudent.email}});
                     } else {
                         this.alertService.error(response.error);
+                        this.buttomDisabled = false;
                     }
                 },
                 err => {
@@ -382,6 +396,34 @@ export class RegisterStudentComponent implements OnInit {
                     this.buttomDisabled = false;
                 }
             );
+        }
+
+    }
+
+    basicSubmit() {
+
+        if (this.basicRegisterForm.valid && !this.basicRegisterForm.pending) {
+
+            this.basicButtomDisabled = true;
+            const basicStudent = this.basicRegisterForm.getRawValue() as Student;
+
+            this.registerStudentService.basicRegister(basicStudent)
+                .subscribe( res => {
+
+                    const response = res.body as ResponseApi;
+                    this.buttomDisabled = false;
+
+                    if (!response.error) {
+                        this.alertService.success('Estudante cadastrado com sucesso!');
+                        this.basicRegisterForm.reset();
+                    } else {
+                        this.alertService.error(response.error);
+                    }
+
+                }, err => {
+                        this.alertService.error('Houve um erro ao cadastrar o estudante. Falha na comunicação com a API');
+                        this.buttomDisabled = false;
+                });
         }
 
     }

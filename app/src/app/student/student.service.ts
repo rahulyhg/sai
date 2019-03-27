@@ -17,4 +17,8 @@ export class StudentService {
     public removeStudent(studentId) {
         return this.http.post(this.API + '/student/removeStudent', {studentId}, {observe: 'response'});
     }
+
+    public updateStudentImage(studentId, image) {
+        return this.http.post(this.API + '/student/updateStudentImage', {studentId, image}, {observe: 'response'});
+    }
 }
